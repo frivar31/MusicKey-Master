@@ -4,103 +4,22 @@
     <meta charset="UTF-8">
     <title>jeu des Tonalites</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6LZzKL2xYHsCdktp/6C9Xx0J" crossorigin="anonymous">
+    <link rel="stylesheet" href="ift3225.css" >
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f4;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-        }
-            
-        .tonalite {
-            display: inline-block;
-            margin: 3px;
-            border: 1px solid #000;
-            position: relative;
-            min-width: 100px; 
-            height: 100px; 
-            text-align: center; 
-
-        }
-        .toper {
-            background-color: #49c545;
-            color: #0000e4; 
-
-           
-        }
-        
-        .majeur {
-            background-color: #fff;
-            color: #000; 
-           
-        }
-        
-        .mineur {
-            background-color: #000;
-            color: #fff;
-        }
-        
-        #jeu {
-            margin: 20px auto;
-            padding: 20px;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-            max-width: 650px;
-        }
-        
-
-        #jeu button {
-            background-color: #007bff;
-            color: #ffffff; 
-            border: none;
-            padding: 10px 20px;
-            margin: 5px 2px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s;
-            min-width: 100px; 
-            max-width: 80%; 
-            width: auto; 
-        }
-        
-        #jeu button:hover {
-            background-color: #0056b3;
-        }
-        
-        #question {
-            font-size: 1em; 
-            color: #333; 
-            margin-bottom: 20px;
-        }
-        
-        #next {
-            display: none; 
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 1.2em;
-        }
-    
-        #score, #chronometre {
-            font-size: 1.5em;
-            color: #007bff;
-            margin: 10px 0;
-        }
-        
-        #feedback {
-            font-size: 1em;
-            margin-top: 15px;
-            color: #d9534f;
-        }
-</style>
 
 </head>
 
 <body>
-    <div id="jeu">
+    <div id="selection-jeu">
+        <h1>Choisis ton jeu</h1>
+        <button class="btn-jeu" data-jeu="jeu1">Jeu 1</button>
+        <button class="btn-jeu" data-jeu="jeu2">Jeu 2</button>
+        <button class="btn-jeu" data-jeu="jeu3">Jeu 3</button>
+        <button class="btn-jeu" data-jeu="jeu4">Jeu 4</button>
+    </div>
+
+
+    <div id="jeu1" style="display: none;">
         <h1>Question:</h1>
         <p id="question"></p>
         <button id="reponseA"></button>
@@ -113,207 +32,73 @@
         <div>Score: <span id="score">0</span></div>
     </div>
 
-<div >
-    <div>      
-        <div class="toper">tonalitse  : </div>
-        <div class="tonalite toper">7 ♭</div>
-        <div class="tonalite toper">6 ♭</div>
-        <div class="tonalite toper">5 ♭</div>
-        <div class="tonalite toper">4 ♭</div>
-        <div class="tonalite toper">3 ♭</div>
-        <div class="tonalite toper">2 ♭</div>
-        <div class="tonalite toper">1 ♭</div>
-        <div class="tonalite toper">0 ♭</div>
-        <div class="tonalite toper">1 #</div>
-        <div class="tonalite toper">2 #</div>
-        <div class="tonalite toper">3 #</div>
-        <div class="tonalite toper">4 #</div>
-        <div class="tonalite toper">5 #</div>
-        <div class="tonalite toper">6 #</div>
-        <div class="tonalite toper">7 #</div>
+    <div id="jeu2" style="display:none;">
+        <h1>Identifiez la tonalité</h1>
+        <img id="tonaliteImage" src="" alt="Tonalité" width="200" height="200">
+        <div>
+        </div>
+        <div id="feedbackJeu2"></div>
     </div>
 
-    <div>
-        <div class="majeur">mode majeur</div>
-        <div class="tonalite majeur">do ♭ majeur</div>
-        <div class="tonalite majeur">sol ♭ majeur</div>
-        <div class="tonalite majeur">ré ♭ majeur</div>
-        <div class="tonalite majeur">la ♭ majeur</div>
-        <div class="tonalite majeur">mi ♭ majeur</div>
-        <div class="tonalite majeur">si ♭ majeur</div>  
-        <div class="tonalite majeur">fa majeur</div>
-        <div class="tonalite majeur">do majeur</div>
-        <div class="tonalite majeur">sol majeur</div>
-        <div class="tonalite majeur">ré majeur</div>
-        <div class="tonalite majeur">la majeur</div>
-        <div class="tonalite majeur">mi majeur</div>
-        <div class="tonalite majeur">si majeur</div>
-        <div class="tonalite majeur">fa ♯ majeur</div>
-        <div class="tonalite majeur">do ♯ majeur</div>
+    <div class="table">
+        <div>
+            <div class="toper">tonalitse  : </div>
+            <div class="tonalite toper">7 ♭<br /> <img src="img-tonalite/7b.svg" alt="7b" /></div>
+            <div class="tonalite toper">6 ♭<br /> <img src="img-tonalite/6b.svg" alt="6b" /></div>
+            <div class="tonalite toper">5 ♭<br /> <img src="img-tonalite/5b.svg" alt="5b" /></div>
+            <div class="tonalite toper">4 ♭<br /> <img src="img-tonalite/4b.svg" alt="4b" /></div>
+            <div class="tonalite toper">3 ♭<br /> <img src="img-tonalite/3b.svg" alt="3b" /></div>
+            <div class="tonalite toper">2 ♭<br /> <img src="img-tonalite/2b.svg" alt="2b" /></div>
+            <div class="tonalite toper">1 ♭<br /> <img src="img-tonalite/1b.svg" alt="1b" /></div>
+            <div class="tonalite toper">0<br /> <img src="img-tonalite/zero.svg" alt="0" /></div>
+            <div class="tonalite toper">1 #<br /> <img src="img-tonalite/1d.svg" alt="1#" /></div>
+            <div class="tonalite toper">2 #<br /> <img src="img-tonalite/2d.svg" alt="2#" /></div>
+            <div class="tonalite toper">3 #<br /> <img src="img-tonalite/3d.svg" alt="3#" /></div>
+            <div class="tonalite toper">4 #<br /> <img src="img-tonalite/4d.svg" alt="4#" /></div>
+            <div class="tonalite toper">5 #<br /> <img src="img-tonalite/5d.svg" alt="5#" /></div>
+            <div class="tonalite toper">6 #<br /> <img src="img-tonalite/6d.svg" alt="6#" /></div>
+            <div class="tonalite toper">7 #<br /> <img src="img-tonalite/7d.svg" alt="7#" /></div>
+        </div>
+
+        <div>
+            <div class="majeur">mode majeur</div>
+            <div class="tonalite majeur">do ♭ majeur</div>
+            <div class="tonalite majeur">sol ♭ majeur</div>
+            <div class="tonalite majeur">ré ♭ majeur</div>
+            <div class="tonalite majeur">la ♭ majeur</div>
+            <div class="tonalite majeur">mi ♭ majeur</div>
+            <div class="tonalite majeur">si ♭ majeur</div>
+            <div class="tonalite majeur">fa majeur</div>
+            <div class="tonalite majeur">do majeur</div>
+            <div class="tonalite majeur">sol majeur</div>
+            <div class="tonalite majeur">ré majeur</div>
+            <div class="tonalite majeur">la majeur</div>
+            <div class="tonalite majeur">mi majeur</div>
+            <div class="tonalite majeur">si majeur</div>
+            <div class="tonalite majeur">fa ♯ majeur</div>
+            <div class="tonalite majeur">do ♯ majeur</div>
+        </div>
+
+        <div>
+            <div class="mineur">mode mineur</div>
+            <div class="tonalite mineur">la ♭ mineur</div>
+            <div class="tonalite mineur">mi ♭ mineur</div>
+            <div class="tonalite mineur">si ♭ mineur</div>
+            <div class="tonalite mineur">fa mineur</div>
+            <div class="tonalite mineur">do mineur</div>
+            <div class="tonalite mineur">sol mineur</div>
+            <div class="tonalite mineur">ré mineur</div>
+            <div class="tonalite mineur">la mineur</div>
+            <div class="tonalite mineur">mi mineur</div>
+            <div class="tonalite mineur">si mineur</div>
+            <div class="tonalite mineur">fa ♯ mineur</div>
+            <div class="tonalite mineur">do ♯ mineur</div>
+            <div class="tonalite mineur">sol ♯ mineur</div>
+            <div class="tonalite mineur">ré ♯ mineur</div>
+            <div class="tonalite mineur">la ♯ mineur</div>
+        </div>
     </div>
-
-    <div >
-        <div class="mineur">mode mineur</div>
-        <div class="tonalite mineur">la ♭ mineur</div>
-        <div class="tonalite mineur">mi ♭ mineur</div>
-        <div class="tonalite mineur">si ♭ mineur</div>
-        <div class="tonalite mineur">fa mineur</div>
-        <div class="tonalite mineur">do mineur</div>
-        <div class="tonalite mineur">sol mineur</div>
-        <div class="tonalite mineur">ré mineur</div>
-        <div class="tonalite mineur">la mineur</div>
-        <div class="tonalite mineur">mi mineur</div>
-        <div class="tonalite mineur">si mineur</div>
-        <div class="tonalite mineur">fa ♯ mineur</div>
-        <div class="tonalite mineur">do ♯ mineur</div>
-        <div class="tonalite mineur">sol ♯ mineur</div>
-        <div class="tonalite mineur">ré ♯ mineur</div>
-        <div class="tonalite mineur">la ♯ mineur</div>
-    </div>
-</div>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-
-        const questionsEtReponses = [
-            {
-                question: "Quelle est la tonalité mineure relative de 'do ♭ majeur'?",
-                reponses: ["la ♭ mineur", "sol mineur", "ré mineur", "mi mineur"],
-                correcte: 0
-            },
-            {
-                question: "Quelle est la tonalité majeure relative de 'ré mineur'?",
-                reponses: ["do ♭ majeur", "ré majeur", "sol majeur", "fa majeur"],
-                correcte: 3
-            },
-            {
-                question: "Quelle est la tonalité mineure relative de 'sol majeur'?",
-                reponses: ["mi ♭ mineur", "la mineur", "si mineur", "ré mineur"],
-                correcte: 0
-            },
-            {
-                question: "Quelle est la tonalité majeure relative de 'mi mineur'?",
-                reponses: ["sol majeur", "do majeur", "la majeur", "ré majeur"],
-                correcte: 0
-            },
-            {
-                question: "Quelle est la tonalité mineure relative de 'fa majeur'?",
-                reponses: ["ré mineur", "la mineur", "si mineur", "do mineur"],
-                correcte: 0
-            },
-        ];
-
-        const chronometreElement = document.getElementById('chronometre');
-        let tempsRestant = 20;
-        function demarrerChronometre() {
-            
-
-            intervaltemps = setInterval(() => {
-                tempsRestant--;
-                chronometreElement.textContent = tempsRestant;
-                if (tempsRestant <= 0) {
-                    clearInterval(intervaltemps);
-                    finDuJeu();
-                }}, 1000);
-        }
-
-        let score = 0;
-        const scoreElement = document.getElementById('score');
-        let questionIndex = 0;
-
-        function poserQuestion() {
-            
-            if (questionIndex < questionsEtReponses.length) {
-
-                const questionCourante = questionsEtReponses[questionIndex];
-                document.getElementById('question').textContent = questionCourante.question;
-                questionCourante.reponses.forEach((reponse, index) => {
-                    let boutonReponse;
-                    switch (index) {
-                        case 0:
-                            boutonReponse = document.getElementById('reponseA');
-                            break;
-                        case 1:
-                            boutonReponse = document.getElementById('reponseB');
-                            break;
-                        case 2:
-                            boutonReponse = document.getElementById('reponseC');
-                            break;
-                        case 3:
-                            boutonReponse = document.getElementById('reponseD');
-                            break;
-                    }
-                    boutonReponse.textContent = reponse;
-                    boutonReponse.disabled = false;
-        
-                    boutonReponse.onclick = function() {
-                        if (index === questionCourante.correcte) {
-                            score += 1;
-                            document.getElementById('feedback').textContent = 'Correct!';
-                        } else {
-                            document.getElementById('feedback').textContent = 'Incorrect.';
-                        }
-                        scoreElement.textContent = score;
-                        boutonsDesactiver();
-                        questionIndex++;
-                        tempsRestant = 21;
-                        if (questionIndex < questionsEtReponses.length) {
-                            setTimeout(poserQuestion, 1000);
-                        } else {
-                            setTimeout(finDuJeu, 1000);
-                        }
-                    };
-                });
-            }
-        }
-    
-        function boutonsDesactiver() {
-            for (let i = 0; i < 4; i++) {
-                let boutonId;
-                switch (i) {
-                    case 0:
-                        boutonId = 'reponseA';
-                        break;
-                    case 1:
-                        boutonId = 'reponseB';
-                        break;
-                    case 2:
-                        boutonId = 'reponseC';
-                        break;
-                    case 3:
-                        boutonId = 'reponseD';
-                        break;
-                }
-                document.getElementById(boutonId).disabled = true;
-            }
-        }
-        function finDuJeu() {
-            clearInterval(intervaltemps);
-            document.getElementById('feedback').textContent = `Le jeu est terminé. Score final : ${score}`;
-            for (let i = 0; i < 4; i++) {
-                let boutonId;
-                switch (i) {
-                    case 0:
-                        boutonId = 'reponseA';
-                        break;
-                    case 1:
-                        boutonId = 'reponseB';
-                        break;
-                    case 2:
-                        boutonId = 'reponseC';
-                        break;
-                    case 3:
-                        boutonId = 'reponseD';
-                        break;
-                }
-                document.getElementById(boutonId).style.display = 'none';
-            }
-        }
-        
-        demarrerChronometre();
-        poserQuestion();
-    });
-    </script>
+    <script src="ift3225.js"></script>
 </body>
 
 </html>

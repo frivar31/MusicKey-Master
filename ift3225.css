@@ -1,0 +1,112 @@
+﻿body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+    padding: 20px;
+}
+
+.table {
+    background-color: #dedede;
+    font-family: 'Arial', sans-serif;
+}
+
+.tonalite {
+    display: inline-block;
+    margin: 3px;
+    border: 1px solid #000;
+    position: relative;
+    min-width: 80px;
+    height: 80px;
+    text-align: center;
+    transition: transform 0.1s ease;
+}
+
+    .tonalite:hover {
+        transform: translateY(-5px);
+        border: 3px solid #ffd800;
+    }
+
+    .tonalite img {
+        width: 80px;
+        height: 80px;
+    }
+
+.toper {
+    background: linear-gradient(45deg, #49c545, #0000e4);
+    color: #ffffff;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.majeur {
+    background: linear-gradient(45deg,#e66465, #9198e5);
+    color: #5d4037;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.mineur {
+    background: linear-gradient(45deg,#8dd1cb, #d1cb8d);
+    color: #03396c;
+    padding: 5px;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+
+#jeu1 {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    max-width: 650px;
+}
+
+
+    #jeu1 button {
+        background-color: #007bff;
+        color: #ffffff;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px 2px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+        min-width: 100px;
+        max-width: 80%;
+        width: auto;
+    }
+
+        #jeu1 button:hover {
+            background-color: #0056b3;
+        }
+
+#question {
+    font-size: 1em;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+#next {
+    display: none;
+    margin: 20px auto;
+    padding: 10px 20px;
+    font-size: 1.2em;
+}
+
+#score, #chronometre {
+    font-size: 1.5em;
+    color: #007bff;
+    margin: 10px 0;
+}
+
+#feedback {
+    font-size: 1em;
+    margin-top: 15px;
+    color: #d9534f;
+}
