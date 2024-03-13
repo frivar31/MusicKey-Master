@@ -1,7 +1,7 @@
 ﻿
     document.addEventListener('DOMContentLoaded', function () {
 
-        let score = 0;
+    let score = 0;
     let questionIndex = 0;
     let intervaltemps;
     const chronometreElement = document.getElementById('chronometre');
@@ -49,31 +49,37 @@
 
 
     function demarrerJeu1() {
-        score = 0;
+    score = 0;
     questionIndex = 0;
     scoreElement.textContent = '0';
     chronometreElement.textContent = '20';
     poserQuestion();
     demarrerChronometre();
-            }
+        }
+
+
     document.querySelector('.btn-jeu[data-jeu="jeu1"]').addEventListener('click', function () {
-        document.getElementById('selection-jeu').style.display = 'none';
+    document.getElementById('selection-jeu').style.display = 'none';
     document.getElementById('jeu1').style.display = 'block';
     demarrerJeu1();
             });
 
+    document.getElementById('retourMenuJeu1').addEventListener('click', function () {
+    document.getElementById('selection-jeu').style.display = 'block';
+    document.getElementById('jeu1').style.display = 'none';
 
+        }
+        );
 
     function poserQuestion() {
 
-                if (questionIndex < questionsEtReponses.length) {
-
-                    const questionCourante = questionsEtReponses[questionIndex];
+     if (questionIndex < questionsEtReponses.length) {
+        const questionCourante = questionsEtReponses[questionIndex];
     document.getElementById('question').textContent = questionCourante.question;
                     questionCourante.reponses.forEach((reponse, index) => {
         let boutonReponse;
     switch (index) {
-                            case 0:
+    case 0:
     boutonReponse = document.getElementById('reponseA');
     break;
     case 1:
@@ -181,11 +187,9 @@
         questionIndex = 0;
         poserQuestionJeu2();
             }
-
         function poserQuestionJeu2() {
             if (questionIndex < questionsEtReponsesJeu2.length) {
                 const questionCourante = questionsEtReponsesJeu2[questionIndex];
-                // Supposons que vous avez des éléments HTML pour la question, les réponses, et un conteneur pour les images
                 document.getElementById('questionJeu2').textContent = questionCourante.question;
                 questionCourante.reponses.forEach((reponse, index) => {
                     let boutonReponse = document.getElementById(`reponseJeu2_${index}`);
@@ -212,5 +216,10 @@
             document.getElementById('feedbackJeu2').textContent = `Le jeu est terminé. Score final : ${score}`;
            
         }
-     
+        document.getElementById('retourMenuJeu2').addEventListener('click', function () {
+            document.getElementById('selection-jeu').style.display = 'block';
+            document.getElementById('jeu2').style.display = 'none';
+
+        }
+             );
     });
