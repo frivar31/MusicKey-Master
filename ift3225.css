@@ -28,10 +28,12 @@
     }
 
     .tonalite img {
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
     }
-
+    .t{
+        margin:10px;
+    }
 .toper {
     background: linear-gradient(45deg, #49c545, #0000e4);
     color: #ffffff;
@@ -65,7 +67,14 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     max-width: 650px;
 }
-
+#jeu2 {
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    max-width: 650px;
+}
 
     #jeu1 button {
         background-color: #007bff;

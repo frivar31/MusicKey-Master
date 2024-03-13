@@ -151,7 +151,8 @@
                     }
     document.getElementById(boutonId).style.display = 'none';
                 }
-            }
+        }
+
 
     //Jeu2
     document.querySelector('.btn-jeu[data-jeu="jeu2"]').addEventListener('click', function () {
@@ -160,12 +161,56 @@
     demarrerJeu2();
             });
 
+        const questionsEtReponsesJeu2 = [
+            {
+                question: "Quelle est la tonalité mineure de l'image",
+                reponses: ["la ♭ mineur", "sol mineur", "ré mineur", "mi mineur"],
+                correcte: 0,
+                imageSupplementaire: "img-tonalite/7b.svg"
+            },
+            {
+                question: "Quelle est la tonalité majeure de l'image",
+                reponses: ["do ♭ majeur", "ré majeur", "sol majeur", "fa majeur"],
+                correcte: 3,
+                imageSupplementaire: "img-tonalite/1b.svg"
+            },
+
+        ];
     function demarrerJeu2() {
         score = 0;
-    document.getElementById('tonaliteImage').src = "img-tonalite/7b.svg";
-    setupJeu2Responses();
+        questionIndex = 0;
+        poserQuestionJeu2();
             }
 
-
-            
-        });
+        function poserQuestionJeu2() {
+            if (questionIndex < questionsEtReponsesJeu2.length) {
+                const questionCourante = questionsEtReponsesJeu2[questionIndex];
+                // Supposons que vous avez des éléments HTML pour la question, les réponses, et un conteneur pour les images
+                document.getElementById('questionJeu2').textContent = questionCourante.question;
+                questionCourante.reponses.forEach((reponse, index) => {
+                    let boutonReponse = document.getElementById(`reponseJeu2_${index}`);
+                    boutonReponse.textContent = reponse;
+                    boutonReponse.onclick = function () {
+                        if (index === questionCourante.correcte) {
+                            score += 1;
+                            document.getElementById('feedbackJeu2').textContent = 'Correct!';
+                        } else {
+                            document.getElementById('feedbackJeu2').textContent = 'Incorrect.';
+                        }
+                        questionIndex++;
+                        if (questionIndex < questionsEtReponsesJeu2.length) {
+                            poserQuestionJeu2();
+                        } else {
+                            finDuJeuJeu2();
+                        }
+                    };
+                });
+                document.getElementById('imageSupplementaire').src = questionCourante.imageSupplementaire;
+            }
+        }
+        function finDuJeuJeu2() {
+            document.getElementById('feedbackJeu2').textContent = `Le jeu est terminé. Score final : ${score}`;
+           
+        }
+     
+    });

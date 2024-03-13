@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>jeu des Tonalites</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6LZzKL2xYHsCdktp/6C9Xx0J" crossorigin="anonymous">
-    <link rel="stylesheet" href="ift3225.css" >
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+
+    <link rel="stylesheet" href="ift3225.css">
 
 
 </head>
@@ -12,10 +14,10 @@
 <body>
     <div id="selection-jeu">
         <h1>Choisis ton jeu</h1>
-        <button class="btn-jeu" data-jeu="jeu1">Jeu 1</button>
-        <button class="btn-jeu" data-jeu="jeu2">Jeu 2</button>
-        <button class="btn-jeu" data-jeu="jeu3">Jeu 3</button>
-        <button class="btn-jeu" data-jeu="jeu4">Jeu 4</button>
+        <button  type="button" class="btn btn-primary btn-jeu btn-lg" data-jeu="jeu1">Jeu 1</button>
+        <button type="button" class="btn btn-success btn-jeu btn-lg" data-jeu="jeu2">Jeu 2</button>
+        <button type="button" class="btn btn-warning btn-jeu btn-lg" data-jeu="jeu3">Jeu 3</button>
+        <button type="button" class="btn btn-info btn-jeu btn-lg" data-jeu="jeu4">Jeu 4</button>
     </div>
 
 
@@ -30,38 +32,43 @@
         <br><br>
         <div>Chronomètre: <span id="chronometre">20</span> secondes</div>
         <div>Score: <span id="score">0</span></div>
+        
     </div>
 
     <div id="jeu2" style="display:none;">
         <h1>Identifiez la tonalité</h1>
-        <img id="tonaliteImage" src="" alt="Tonalité" width="200" height="200">
-        <div>
-        </div>
+        <p id="questionJeu2">Question:</p>
+        <button id="reponseJeu2_0" class="btn-reponse">Réponse A</button>
+        <button id="reponseJeu2_1" class="btn-reponse">Réponse B</button>
+        <button id="reponseJeu2_2" class="btn-reponse">Réponse C</button>
+        <button id="reponseJeu2_3" class="btn-reponse">Réponse D</button>
         <div id="feedbackJeu2"></div>
+        <img id="imageSupplementaire" src="" alt="Image supplémentaire" width="200" height="200"><br />
+        <button id="retourMenuJeu2" class="btn btn-secondary">Retour au menu</button>
     </div>
 
     <div class="table">
         <div>
-            <div class="toper">tonalitse  : </div>
-            <div class="tonalite toper">7 ♭<br /> <img src="img-tonalite/7b.svg" alt="7b" /></div>
-            <div class="tonalite toper">6 ♭<br /> <img src="img-tonalite/6b.svg" alt="6b" /></div>
-            <div class="tonalite toper">5 ♭<br /> <img src="img-tonalite/5b.svg" alt="5b" /></div>
-            <div class="tonalite toper">4 ♭<br /> <img src="img-tonalite/4b.svg" alt="4b" /></div>
-            <div class="tonalite toper">3 ♭<br /> <img src="img-tonalite/3b.svg" alt="3b" /></div>
-            <div class="tonalite toper">2 ♭<br /> <img src="img-tonalite/2b.svg" alt="2b" /></div>
-            <div class="tonalite toper">1 ♭<br /> <img src="img-tonalite/1b.svg" alt="1b" /></div>
-            <div class="tonalite toper">0<br /> <img src="img-tonalite/zero.svg" alt="0" /></div>
-            <div class="tonalite toper">1 #<br /> <img src="img-tonalite/1d.svg" alt="1#" /></div>
-            <div class="tonalite toper">2 #<br /> <img src="img-tonalite/2d.svg" alt="2#" /></div>
-            <div class="tonalite toper">3 #<br /> <img src="img-tonalite/3d.svg" alt="3#" /></div>
-            <div class="tonalite toper">4 #<br /> <img src="img-tonalite/4d.svg" alt="4#" /></div>
-            <div class="tonalite toper">5 #<br /> <img src="img-tonalite/5d.svg" alt="5#" /></div>
-            <div class="tonalite toper">6 #<br /> <img src="img-tonalite/6d.svg" alt="6#" /></div>
-            <div class="tonalite toper">7 #<br /> <img src="img-tonalite/7d.svg" alt="7#" /></div>
+            <div class="toper t">tonalitse  : </div>
+            <div class="tonalite toper">7 ♭ <img src="img-tonalite/7b.svg" alt="7b" /></div>
+            <div class="tonalite toper">6 ♭ <img src="img-tonalite/6b.svg" alt="6b" /></div>
+            <div class="tonalite toper">5 ♭ <img src="img-tonalite/5b.svg" alt="5b" /></div>
+            <div class="tonalite toper">4 ♭ <img src="img-tonalite/4b.svg" alt="4b" /></div>
+            <div class="tonalite toper">3 ♭ <img src="img-tonalite/3b.svg" alt="3b" /></div>
+            <div class="tonalite toper">2 ♭ <img src="img-tonalite/2b.svg" alt="2b" /></div>
+            <div class="tonalite toper">1 ♭ <img src="img-tonalite/1b.svg" alt="1b" /></div>
+            <div class="tonalite toper">0 <img src="img-tonalite/zero.svg" alt="0" /></div>
+            <div class="tonalite toper">1 # <img src="img-tonalite/1d.svg" alt="1#" /></div>
+            <div class="tonalite toper">2 # <img src="img-tonalite/2d.svg" alt="2#" /></div>
+            <div class="tonalite toper">3 # <img src="img-tonalite/3d.svg" alt="3#" /></div>
+            <div class="tonalite toper">4 # <img src="img-tonalite/4d.svg" alt="4#" /></div>
+            <div class="tonalite toper">5 # <img src="img-tonalite/5d.svg" alt="5#" /></div>
+            <div class="tonalite toper">6 # <img src="img-tonalite/6d.svg" alt="6#" /></div>
+            <div class="tonalite toper">7 # <img src="img-tonalite/7d.svg" alt="7#" /></div>
         </div>
 
         <div>
-            <div class="majeur">mode majeur</div>
+            <div class="majeur t">mode majeur</div>
             <div class="tonalite majeur">do ♭ majeur</div>
             <div class="tonalite majeur">sol ♭ majeur</div>
             <div class="tonalite majeur">ré ♭ majeur</div>
@@ -80,7 +87,7 @@
         </div>
 
         <div>
-            <div class="mineur">mode mineur</div>
+            <div class="mineur t">mode mineur</div>
             <div class="tonalite mineur">la ♭ mineur</div>
             <div class="tonalite mineur">mi ♭ mineur</div>
             <div class="tonalite mineur">si ♭ mineur</div>
