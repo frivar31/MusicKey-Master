@@ -7,7 +7,27 @@
 }
 
 /*les cardres des tonaliter */
+#selection-jeu {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 600px; 
+    margin: auto;
+}
 
+    #selection-jeu h1 {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 20px; 
+    }
+
+.btn {
+    padding: 20px 40px; 
+    font-size: 20px;
+    margin: 10px; 
+    width: calc(50% - 20px);
+    box-sizing: border-box;
+    
+}
 .tonalite {
     display: inline-block;
     margin: 3px;
@@ -110,13 +130,13 @@
     font-size: 1.2em;
 }
 
-#score, #chronometre {
+.score, .chronometre {
     font-size: 1.5em;
     color: #007bff;
     margin: 10px 0;
 }
 
-#feedback {
+.feedback {
     font-size: 2em;
     margin-top: 15px;
     color: #d9534f;

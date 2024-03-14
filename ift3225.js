@@ -3,8 +3,8 @@
     let score = 0;
     let questionIndex = 0;
     let intervaltemps;
-    const chronometreElement = document.getElementById('chronometre');
-    const scoreElement = document.getElementById('score');
+    const chronometreElement = document.querySelectorAll('.chronometre');
+    const scoreElement = document.querySelectorAll('.score');
     let tempsRestant = 20;
 
     
@@ -36,12 +36,22 @@
             correcte: 0
         }
     ];
+    function updateChronometre() {
+        chronometreElement.forEach(el => el.textContent = tempsRestant);
+    }
 
+    function updateScore() {
+        scoreElement.forEach(el => el.textContent = score.toString());
+    }
+
+    function updateFeedback(message) {
+        document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
+    }
     // le chronometre du jeu
     function demarrerChronometre() {
         intervaltemps = setInterval(() => {
             tempsRestant--;
-            chronometreElement.textContent = tempsRestant;
+            updateChronometre();
 
             if (tempsRestant <= 0) { //temps est fini on passe a la question suivante 
                 passerALaQuestionSuivante();
@@ -54,9 +64,9 @@
         tempsRestant = 20;
         score = 0;
         questionIndex = 0;
-        scoreElement.textContent = '0';
-        chronometreElement.textContent = '20';
-        document.getElementById('feedback').textContent = '';
+        updateScore(); 
+        updateChronometre(); 
+        updateFeedback('');
     }
 
     // on passe a la question suivante si il y'a plus de question fin du jeu
@@ -74,7 +84,7 @@
     function reinitialiserPourQuestionSuivante() {
         tempsRestant = 21;
         boutonsDesactiver();
-        chronometreElement.textContent = '20';
+        updateChronometre();
         demarrerChronometre();
     }
 
@@ -92,12 +102,13 @@
     });
 
         //pour afficher le jeu 1 une fois qu'on clique sur le button du jeu1 
-    document.getElementById('retourMenuJeu1').addEventListener('click', function () {
+    document.querySelectorAll('.retourMenuJeu').forEach(button => {
+        button.addEventListener('click', function () {
         document.getElementById('selection-jeu').style.display = 'block';
         document.getElementById('jeu1').style.display = 'none';
         reinitialiserBoutonsReponse();
         initialiserJeu();
-
+        });
     });
 
     // les question demander pour le jeu1
@@ -127,11 +138,11 @@
                 boutonReponse.onclick = function () {
                     if (index === questionCourante.correcte) {
                         score += 1;
-                        document.getElementById('feedback').textContent = 'Correct!';
+                        updateFeedback('Correct!');
                     } else {
-                        document.getElementById('feedback').textContent = 'Incorrect.';
+                        updateFeedback('Incorrect.');
                     }
-                    scoreElement.textContent = score;
+                    updateScore();
                     boutonsDesactiver();
                     questionIndex++;
                     tempsRestant = 21;
@@ -191,7 +202,7 @@
     // on affiche le score et enleve les buttonns 
     function finDuJeu() {
         clearInterval(intervaltemps);
-        document.getElementById('feedback').textContent = `Le jeu est terminé. Score final : ${score}`;
+        updateFeedback(`Le jeu est terminé. Score final : ${score}`);
         for (let i = 0; i < 4; i++) {
             let boutonId;
             switch (i) {
@@ -212,7 +223,7 @@
         }
     }
 
-    // Jeu 2 ( il resye a rajouter le chronomettre et score et aussi regler le retour au menu comme dans le jeu 1)
+    // Jeu 2 
     document.getElementById('btnJeu2').addEventListener('click', function () {
         document.getElementById('selection-jeu').style.display = 'none';
         document.getElementById('jeu2').style.display = 'block';
@@ -224,20 +235,20 @@
             question: "Quelle est la tonalité mineure de l'image",
             reponses: ["la ♭ mineur", "sol mineur", "ré mineur", "mi mineur"],
             correcte: 0,
-            imageSupplementaire: "img-tonalite/7b.svg"
+            imgTonalite: "img-tonalite/7b.svg"
         },
         {
             question: "Quelle est la tonalité majeure de l'image",
             reponses: ["do ♭ majeur", "ré majeur", "sol majeur", "fa majeur"],
             correcte: 3,
-            imageSupplementaire: "img-tonalite/1b.svg"
+            imgTonalite: "img-tonalite/1b.svg"
         }
     ];
 
     function demarrerJeu2() {
-        score = 0;
-        questionIndex = 0;
+        initialiserJeu();
         poserQuestionJeu2();
+        demarrerChronometre();
     }
 
     function poserQuestionJeu2() {
@@ -250,28 +261,52 @@
                 boutonReponse.onclick = function () {
                     if (index === questionCourante.correcte) {
                         score += 1;
-                        document.getElementById('feedbackJeu2').textContent = 'Correct!';
+                        updateFeedback('Correct!');
                     } else {
-                        document.getElementById('feedbackJeu2').textContent = 'Incorrect.';
+                        updateFeedback('Incorrect.');
                     }
+                    updateScore();
                     questionIndex++;
+                    tempsRestant = 21;
                     if (questionIndex < questionsEtReponsesJeu2.length) {
-                        poserQuestionJeu2();
+                        setTimeout(() => poserQuestionJeu2(), 1000);
                     } else {
-                        finDuJeuJeu2();
+                        setTimeout(finDuJeu2, 1000);
                     }
                 };
             });
-            document.getElementById('imageSupplementaire').src = questionCourante.imageSupplementaire;
+            document.getElementById('imgTonalite').src = questionCourante.imgTonalite; 
         }
     }
 
-    function finDuJeuJeu2() {
-        document.getElementById('feedbackJeu2').textContent = `Le jeu est terminé. Score final : ${score}`;
+    function finDuJeu2() {     
+            clearInterval(intervaltemps);
+            updateFeedback(`Le jeu est terminé. Score final : ${score}`);
+            for (let i = 0; i < 4; i++) {
+                let boutonId;
+                switch (i) {
+                    case 0:
+                        boutonId = 'reponseJeu2_0';
+                        break;
+                    case 1:
+                        boutonId = 'reponseJeu2_1';
+                        break;
+                    case 2:
+                        boutonId = 'reponseJeu2_2';
+                        break;
+                    case 3:
+                        boutonId = 'reponseJeu2_3';
+                        break;
+                }
+                document.getElementById(boutonId).style.display = 'none';
+            }
+       
     }
 
-    document.getElementById('retourMenuJeu2').addEventListener('click', function () {
+    document.querySelectorAll('.retourMenuJeu').forEach(button => {
+        button.addEventListener('click', function () {
         document.getElementById('selection-jeu').style.display = 'block';
-        document.getElementById('jeu2').style.display = 'none';
+            document.getElementById('jeu2').style.display = 'none';
+        });
     });
 });
