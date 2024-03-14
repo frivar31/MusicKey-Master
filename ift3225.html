@@ -14,10 +14,10 @@
 <body>
     <div id="selection-jeu">
         <h1>Choisis ton jeu</h1>
-        <button  type="button" class="btn btn-primary btn-jeu btn-lg" data-jeu="jeu1">Jeu 1</button>
-        <button type="button" class="btn btn-success btn-jeu btn-lg" data-jeu="jeu2">Jeu 2</button>
-        <button type="button" class="btn btn-warning btn-jeu btn-lg" data-jeu="jeu3">Jeu 3</button>
-        <button type="button" class="btn btn-info btn-jeu btn-lg" data-jeu="jeu4">Jeu 4</button>
+        <button type="button" id="btnJeu1" class="btn btn-primary btn-lg">Jeu 1</button>
+        <button type="button" id="btnJeu2" class="btn btn-success btn-lg">Jeu 2</button>
+        <button type="button" id="btnJeu3" class="btn btn-warning btn-lg">Jeu 3</button>
+        <button type="button" id="btnJeu4" class="btn btn-info btn-lg">Jeu 4</button>
     </div>
 
 
@@ -48,64 +48,105 @@
         <button id="retourMenuJeu2" class="btn btn-secondary">Retour au menu</button>
     </div>
 
+
     <div class="table">
-        <div>
-            <div class="toper t">tonalitse  : </div>
+
+        <div class="column">
+            <div class="tonalite toper">tonalitse  : </div>
+            <div class="tonalite majeur">mode majeur :</div>
+            <div class="tonalite mineur">mode mineur :</div>
+        </div>
+        <div class="column">
+
             <div class="tonalite toper">7 ♭ <img src="img-tonalite/7b.svg" alt="7b" /></div>
-            <div class="tonalite toper">6 ♭ <img src="img-tonalite/6b.svg" alt="6b" /></div>
-            <div class="tonalite toper">5 ♭ <img src="img-tonalite/5b.svg" alt="5b" /></div>
-            <div class="tonalite toper">4 ♭ <img src="img-tonalite/4b.svg" alt="4b" /></div>
-            <div class="tonalite toper">3 ♭ <img src="img-tonalite/3b.svg" alt="3b" /></div>
-            <div class="tonalite toper">2 ♭ <img src="img-tonalite/2b.svg" alt="2b" /></div>
-            <div class="tonalite toper">1 ♭ <img src="img-tonalite/1b.svg" alt="1b" /></div>
-            <div class="tonalite toper">0 <img src="img-tonalite/zero.svg" alt="0" /></div>
-            <div class="tonalite toper">1 # <img src="img-tonalite/1d.svg" alt="1#" /></div>
-            <div class="tonalite toper">2 # <img src="img-tonalite/2d.svg" alt="2#" /></div>
-            <div class="tonalite toper">3 # <img src="img-tonalite/3d.svg" alt="3#" /></div>
-            <div class="tonalite toper">4 # <img src="img-tonalite/4d.svg" alt="4#" /></div>
-            <div class="tonalite toper">5 # <img src="img-tonalite/5d.svg" alt="5#" /></div>
-            <div class="tonalite toper">6 # <img src="img-tonalite/6d.svg" alt="6#" /></div>
-            <div class="tonalite toper">7 # <img src="img-tonalite/7d.svg" alt="7#" /></div>
-        </div>
-
-        <div>
-            <div class="majeur t">mode majeur</div>
             <div class="tonalite majeur">do ♭ majeur</div>
-            <div class="tonalite majeur">sol ♭ majeur</div>
-            <div class="tonalite majeur">ré ♭ majeur</div>
-            <div class="tonalite majeur">la ♭ majeur</div>
-            <div class="tonalite majeur">mi ♭ majeur</div>
-            <div class="tonalite majeur">si ♭ majeur</div>
-            <div class="tonalite majeur">fa majeur</div>
-            <div class="tonalite majeur">do majeur</div>
-            <div class="tonalite majeur">sol majeur</div>
-            <div class="tonalite majeur">ré majeur</div>
-            <div class="tonalite majeur">la majeur</div>
-            <div class="tonalite majeur">mi majeur</div>
-            <div class="tonalite majeur">si majeur</div>
-            <div class="tonalite majeur">fa ♯ majeur</div>
-            <div class="tonalite majeur">do ♯ majeur</div>
-        </div>
-
-        <div>
-            <div class="mineur t">mode mineur</div>
             <div class="tonalite mineur">la ♭ mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">6 ♭ <img src="img-tonalite/6b.svg" alt="6b" /></div>
+            <div class="tonalite majeur">sol ♭ majeur</div>
             <div class="tonalite mineur">mi ♭ mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">5 ♭ <img src="img-tonalite/5b.svg" alt="5b" /></div>
+            <div class="tonalite majeur">ré ♭ majeur</div>
             <div class="tonalite mineur">si ♭ mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">4 ♭ <img src="img-tonalite/4b.svg" alt="4b" /></div>
+            <div class="tonalite majeur">la ♭ majeur</div>
             <div class="tonalite mineur">fa mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">3 ♭ <img src="img-tonalite/3b.svg" alt="3b" /></div>
+            <div class="tonalite majeur">mi ♭ majeur</div>
             <div class="tonalite mineur">do mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">2 ♭<img src="img-tonalite/2b.svg" alt="2b" /></div>
+            <div class="tonalite majeur">si ♭ majeur</div>
             <div class="tonalite mineur">sol mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">1 ♭ <img src="img-tonalite/1b.svg" alt="1b" /></div>
+            <div class="tonalite majeur">fa majeur</div>
             <div class="tonalite mineur">ré mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">0 <img src="img-tonalite/zero.svg" alt="0" /></div>
+            <div class="tonalite majeur">do majeur</div>
             <div class="tonalite mineur">la mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">1 # <img src="img-tonalite/1d.svg" alt="1#" /></div>
+            <div class="tonalite majeur">sol majeur</div>
             <div class="tonalite mineur">mi mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">2 # <img src="img-tonalite/2d.svg" alt="2#" /></div>
+            <div class="tonalite majeur">ré majeur</div>
             <div class="tonalite mineur">si mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">3 # <img src="img-tonalite/3d.svg" alt="3#" /></div>
+            <div class="tonalite majeur">la majeur</div>
             <div class="tonalite mineur">fa ♯ mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">4 # <img src="img-tonalite/4d.svg" alt="4#" /></div>
+            <div class="tonalite majeur">mi majeur</div>
             <div class="tonalite mineur">do ♯ mineur</div>
+        </div>
+        <div class="column">
+
+            <div class="tonalite toper">5 # <img src="img-tonalite/5d.svg" alt="5#" /></div>
+            <div class="tonalite majeur">si majeur</div>
             <div class="tonalite mineur">sol ♯ mineur</div>
+        </div>
+        <div class="column">
+            <div class="tonalite toper">6 # <img src="img-tonalite/6d.svg" alt="6#" /></div>
+            <div class="tonalite majeur">fa ♯ majeur</div>
             <div class="tonalite mineur">ré ♯ mineur</div>
+        </div>
+        <div class="column">
+            <div class="tonalite toper">7 # <img src="img-tonalite/7d.svg" alt="7#" /></div>
+            <div class="tonalite majeur">do ♯ majeur</div>
             <div class="tonalite mineur">la ♯ mineur</div>
         </div>
+
     </div>
+
     <script src="ift3225.js"></script>
 </body>
 
