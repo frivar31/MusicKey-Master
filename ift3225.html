@@ -23,32 +23,31 @@
 
     <div id="jeu1" style="display: none;">
         <h1>Question:</h1>
-        <p id="question"></p>
-        <button id="reponseA"></button>
-        <button id="reponseB"></button>
-        <button id="reponseC"></button>
-        <button id="reponseD"></button>
+        <p id="jeu1_question"></p>
+        <button id="jeu1_reponseA" class="btn-reponse">Réponse A</button>
+        <button id="jeu1_reponseB" class="btn-reponse">Réponse B</button>
+        <button id="jeu1_reponseC" class="btn-reponse">Réponse C</button>
+        <button id="jeu1_reponseD" class="btn-reponse">Réponse D</button>
         <div class="feedback"></div>
         <br>
         <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
         <div>Score: <span class="score">0</span></div>
-        <button  class="btn btn-secondary retourMenuJeu">Retour au menu</button>
-
+        <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
     </div>
-
+    
     <div id="jeu2" style="display:none;">
         <h1>Identifiez la tonalité</h1>
-        <p id="questionJeu2">Question:</p>
-        <button id="reponseJeu2_0" class="btn-reponse">Réponse A</button>
-        <button id="reponseJeu2_1" class="btn-reponse">Réponse B</button>
-        <button id="reponseJeu2_2" class="btn-reponse">Réponse C</button>
-        <button id="reponseJeu2_3" class="btn-reponse">Réponse D</button>
+        <p id="jeu2_question">Question:</p>
+        <button id="jeu2_reponseA" class="btn-reponse">Réponse A</button>
+        <button id="jeu2_reponseB" class="btn-reponse">Réponse B</button>
+        <button id="jeu2_reponseC" class="btn-reponse">Réponse C</button>
+        <button id="jeu2_reponseD" class="btn-reponse">Réponse D</button>
         <div class="feedback"></div>
         <br />
         <img id="imgTonalite" src="" alt="img-tonalite" width="200" height="200"><br />
         <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
         <div>Score: <span class="score">0</span></div>
-        <button class="btn btn-secondary retourMenuJeu">Retour au menu</button>
+        <button class="btn btn-secondary retourMenuJeu" data-jeu="jeu2">Retour au menu</button>
     </div>
 
 

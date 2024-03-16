@@ -7,9 +7,11 @@
     const scoreElement = document.querySelectorAll('.score');
     let tempsRestant = 20;
 
+
+    /* ---------------------------------- DONNEES DU JEU ----------------------------------------- */
     
     //question et leurs reponses pour jeu1
-    const questionsEtReponses = [
+    const questionsEtReponsesJeu1 = [
         {
             question: "Quelle est la tonalité mineure relative de 'do ♭ majeur'?",
             reponses: ["la ♭ mineur", "sol mineur", "ré mineur", "mi mineur"],
@@ -36,199 +38,6 @@
             correcte: 0
         }
     ];
-    function updateChronometre() {
-        chronometreElement.forEach(el => el.textContent = tempsRestant);
-    }
-
-    function updateScore() {
-        scoreElement.forEach(el => el.textContent = score.toString());
-    }
-
-    function updateFeedback(message) {
-        document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
-    }
-    // le chronometre du jeu
-    function demarrerChronometre() {
-        intervaltemps = setInterval(() => {
-            tempsRestant--;
-            updateChronometre();
-
-            if (tempsRestant <= 0) { //temps est fini on passe a la question suivante 
-                passerALaQuestionSuivante();
-            }
-        }, 1000);
-    }
-
-    function initialiserJeu() {
-        clearInterval(intervaltemps);
-        tempsRestant = 20;
-        score = 0;
-        questionIndex = 0;
-        updateScore(); 
-        updateChronometre(); 
-        updateFeedback('');
-    }
-
-    // on passe a la question suivante si il y'a plus de question fin du jeu
-    function passerALaQuestionSuivante() {
-        clearInterval(intervaltemps);
-        questionIndex++;
-        if (questionIndex < questionsEtReponses.length) {
-            reinitialiserPourQuestionSuivante();
-            poserQuestion();
-        } else {
-            finDuJeu();
-        }
-    }
-    // on initielise le temps a chaque fois qu'une question est poser
-    function reinitialiserPourQuestionSuivante() {
-        tempsRestant = 21;
-        boutonsDesactiver();
-        updateChronometre();
-        demarrerChronometre();
-    }
-
-    //on demarre le jeu1
-    function demarrerJeu1() {
-        initialiserJeu();
-        poserQuestion();
-        demarrerChronometre();
-    }
-    //pour afficher le jeu 1 une fois qu'on clique sur le button du jeu1 
-    document.getElementById('btnJeu1').addEventListener('click', function () {
-        document.getElementById('selection-jeu').style.display = 'none';
-        document.getElementById('jeu1').style.display = 'block';
-        demarrerJeu1();
-    });
-
-        //pour afficher le jeu 1 une fois qu'on clique sur le button du jeu1 
-    document.querySelectorAll('.retourMenuJeu').forEach(button => {
-        button.addEventListener('click', function () {
-        document.getElementById('selection-jeu').style.display = 'block';
-        document.getElementById('jeu1').style.display = 'none';
-        reinitialiserBoutonsReponse();
-        initialiserJeu();
-        });
-    });
-
-    // les question demander pour le jeu1
-    function poserQuestion() {
-        if (questionIndex < questionsEtReponses.length) {
-            const questionCourante = questionsEtReponses[questionIndex];
-            document.getElementById('question').textContent = questionCourante.question;
-            questionCourante.reponses.forEach((reponse, index) => {
-                let boutonReponse;
-                switch (index) {
-                    case 0:
-                        boutonReponse = document.getElementById('reponseA');
-                        break;
-                    case 1:
-                        boutonReponse = document.getElementById('reponseB');
-                        break;
-                    case 2:
-                        boutonReponse = document.getElementById('reponseC');
-                        break;
-                    case 3:
-                        boutonReponse = document.getElementById('reponseD');
-                        break;
-                }
-                boutonReponse.textContent = reponse;
-                boutonReponse.disabled = false;
-
-                boutonReponse.onclick = function () {
-                    if (index === questionCourante.correcte) {
-                        score += 1;
-                        updateFeedback('Correct!');
-                    } else {
-                        updateFeedback('Incorrect.');
-                    }
-                    updateScore();
-                    boutonsDesactiver();
-                    questionIndex++;
-                    tempsRestant = 21;
-                    if (questionIndex < questionsEtReponses.length) {
-                        setTimeout(poserQuestion, 1000);
-                    } else {
-                        setTimeout(finDuJeu, 1000);
-                    }
-                };
-            });
-        }
-    }
-    // désactive les boutons de réponse pour éviter des réponses multiples
-    function boutonsDesactiver() {
-        for (let i = 0; i < 4; i++) {
-            let boutonId;
-            switch (i) {
-                case 0:
-                    boutonId = 'reponseA';
-                    break;
-                case 1:
-                    boutonId = 'reponseB';
-                    break;
-                case 2:
-                    boutonId = 'reponseC';
-                    break;
-                case 3:
-                    boutonId = 'reponseD';
-                    break;
-            }
-            document.getElementById(boutonId).disabled = true;
-        }
-    }
-
-    function reinitialiserBoutonsReponse() {
-        for (let i = 0; i < 4; i++) {
-            let boutonId;
-            switch (i) {
-                case 0:
-                    boutonId = 'reponseA';
-                    break;
-                case 1:
-                    boutonId = 'reponseB';
-                    break;
-                case 2:
-                    boutonId = 'reponseC';
-                    break;
-                case 3:
-                    boutonId = 'reponseD';
-                    break;
-            }
-            let bouton = document.getElementById(boutonId);
-            bouton.style.display = 'inline-block';
-            bouton.disabled = false;
-        }
-    }
-    // on affiche le score et enleve les buttonns 
-    function finDuJeu() {
-        clearInterval(intervaltemps);
-        updateFeedback(`Le jeu est terminé. Score final : ${score}`);
-        for (let i = 0; i < 4; i++) {
-            let boutonId;
-            switch (i) {
-                case 0:
-                    boutonId = 'reponseA';
-                    break;
-                case 1:
-                    boutonId = 'reponseB';
-                    break;
-                case 2:
-                    boutonId = 'reponseC';
-                    break;
-                case 3:
-                    boutonId = 'reponseD';
-                    break;
-            }
-            document.getElementById(boutonId).style.display = 'none';
-        }
-    }
-
-    // Jeu 2 
-    document.getElementById('btnJeu2').addEventListener('click', function () {
-        document.getElementById('selection-jeu').style.display = 'none';
-        document.getElementById('jeu2').style.display = 'block';
-        demarrerJeu2();
-    });
 
     const questionsEtReponsesJeu2 = [
         {
@@ -245,20 +54,121 @@
         }
     ];
 
-    function demarrerJeu2() {
+    /* ----------------------------------- LOGIQUE ------------------------------------ */
+
+    function updateChronometre() {
+        chronometreElement.forEach(el => el.textContent = tempsRestant);
+    }
+
+    function updateScore() {
+        scoreElement.forEach(el => el.textContent = score.toString());
+    }
+
+    function updateFeedback(message) {
+        document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
+    }
+
+    function initialiserJeu() {
+        clearInterval(intervaltemps);
+        tempsRestant = 20;
+        score = 0;
+        questionIndex = 0;
+        updateScore(); 
+        updateChronometre(); 
+        updateFeedback('');
+    }
+
+    function demarrerChronometre(jeuId, question) {
+        intervaltemps = setInterval(() => {
+            tempsRestant--;
+            updateChronometre();
+    
+            if (tempsRestant <= 0) {
+                clearInterval(intervaltemps);
+                updateFeedback("Temps écoulé");
+                passerALaQuestionSuivante(jeuId, question);
+            }
+        }, 1000);
+    }
+    
+    function passerALaQuestionSuivante(jeuId, question) {
+        questionIndex++;
+        if (questionIndex < question.length) {
+            reinitialiserPourQuestionSuivante();
+            poserQuestion(question, jeuId);
+        } else {
+            finDuJeu(jeuId);
+        }
+    }
+    
+    function reinitialiserPourQuestionSuivante() {
+        tempsRestant = 20;
+        updateChronometre();
+        demarrerChronometre();
+    }
+    
+
+    // le chronometre du jeu
+    /* function demarrerChronometre(question, jeuId) {
+        intervaltemps = setInterval(() => {
+            tempsRestant--;
+            updateChronometre();
+
+            if (tempsRestant <= 0) { //temps est fini on passe a la question suivante 
+                passerALaQuestionSuivante(question, jeuId);
+            }
+        }, 1000);
+    }
+
+    // on passe a la question suivante si il y'a plus de question fin du jeu
+    function passerALaQuestionSuivante(jeuId, question) {
+        clearInterval(intervaltemps);
+        questionIndex++;
+        if (questionIndex < questionsEtReponses.length) {
+            reinitialiserPourQuestionSuivante();
+            poserQuestion(question, jeuId);
+        } else {
+            finDuJeu(jeuId);
+        }
+    }
+
+    // on initielise le temps a chaque fois qu'une question est poser
+    function reinitialiserPourQuestionSuivante() {
+        tempsRestant = 21;
+        updateChronometre();
+        demarrerChronometre();
+    } */
+
+    //on demarre le jeu
+    function demarrerJeu(question, jeuId) {
         initialiserJeu();
-        poserQuestionJeu2();
+        poserQuestion(question, jeuId);
         demarrerChronometre();
     }
 
-    function poserQuestionJeu2() {
-        if (questionIndex < questionsEtReponsesJeu2.length) {
-            const questionCourante = questionsEtReponsesJeu2[questionIndex];
-            document.getElementById('questionJeu2').textContent = questionCourante.question;
-            questionCourante.reponses.forEach((reponse, index) => {
-                let boutonReponse = document.getElementById(`reponseJeu2_${index}`);
-                boutonReponse.textContent = reponse;
-                boutonReponse.onclick = function () {
+    function afficherJeu(jeu, question){
+        document.getElementById('selection-jeu').style.display = 'none';
+        document.getElementById(jeu).style.display = 'block';
+        demarrerJeu(question, jeu);
+    }
+
+    function retourMenu(jeu){
+        document.getElementById('selection-jeu').style.display = 'block';
+        document.getElementById(jeu).style.display = 'none';
+        reinitialiserBoutonsReponse(jeu);
+        initialiserJeu();
+    }
+
+    function poserQuestion(questions, jeuId) {
+        if (questionIndex < questions.length) {
+            const questionCourante = questions[questionIndex];
+            const questionElement = document.getElementById(`${jeuId}_question`);
+            questionElement.textContent = questionCourante.question;
+    
+            const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+            boutonsReponse.forEach((bouton, index) => {
+                bouton.textContent = questionCourante.reponses[index];
+                bouton.onclick = function () {
                     if (index === questionCourante.correcte) {
                         score += 1;
                         updateFeedback('Correct!');
@@ -268,45 +178,54 @@
                     updateScore();
                     questionIndex++;
                     tempsRestant = 21;
-                    if (questionIndex < questionsEtReponsesJeu2.length) {
-                        setTimeout(() => poserQuestionJeu2(), 1000);
+                    if (questionIndex < questions.length) {
+                        setTimeout(() => poserQuestion(questions, jeuId), 1000);
                     } else {
-                        setTimeout(finDuJeu2, 1000);
+                        setTimeout(() => finDuJeu(jeuId), 1000);
                     }
                 };
             });
-            document.getElementById('imgTonalite').src = questionCourante.imgTonalite; 
+    
+            if (jeuId === 'jeu2') {
+                document.getElementById('imgTonalite').src = questionCourante.imgTonalite; 
+            }
         }
     }
 
-    function finDuJeu2() {     
-            clearInterval(intervaltemps);
-            updateFeedback(`Le jeu est terminé. Score final : ${score}`);
-            for (let i = 0; i < 4; i++) {
-                let boutonId;
-                switch (i) {
-                    case 0:
-                        boutonId = 'reponseJeu2_0';
-                        break;
-                    case 1:
-                        boutonId = 'reponseJeu2_1';
-                        break;
-                    case 2:
-                        boutonId = 'reponseJeu2_2';
-                        break;
-                    case 3:
-                        boutonId = 'reponseJeu2_3';
-                        break;
-                }
-                document.getElementById(boutonId).style.display = 'none';
-            }
-       
+    function reinitialiserBoutonsReponse(jeuId) {
+        const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+        boutonsReponse.forEach(bouton => {
+            bouton.style.display = 'inline-block';
+            bouton.disabled = false;
+        });
     }
+
+    // on affiche le score et enleve les buttonns 
+    function finDuJeu(jeuId) {
+        clearInterval(intervaltemps);
+        updateFeedback(`Le jeu est terminé. Score final : ${score}`);
+        const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+        boutonsReponse.forEach(bouton => {
+            bouton.style.display = 'none';
+        });
+    }
+
+/* -------------------------------------- JEUX -------------------------------------------- */
+
+    // Jeu 1
+    document.getElementById('btnJeu1').addEventListener('click', function () {
+        afficherJeu('jeu1', questionsEtReponsesJeu1);
+    });
+
+    // Jeu 2 
+    document.getElementById('btnJeu2').addEventListener('click', function () {
+        afficherJeu('jeu2', questionsEtReponsesJeu2);
+    });
 
     document.querySelectorAll('.retourMenuJeu').forEach(button => {
         button.addEventListener('click', function () {
-        document.getElementById('selection-jeu').style.display = 'block';
-            document.getElementById('jeu2').style.display = 'none';
+            retourMenu('jeu1');
+            retourMenu('jeu2');
         });
     });
 });
