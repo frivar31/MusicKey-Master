@@ -50,6 +50,23 @@
         <button class="btn btn-secondary retourMenuJeu" data-jeu="jeu2">Retour au menu</button>
     </div>
 
+    <div id="jeu3" style="display:none;">
+        <h1>Devine le nombre</h1>
+        <form id="formJeu3">
+            <p id="jeu3_question">Question:</p>
+            <input id="reponseJeu3" type="text" pattern="[0-9]+" required/>
+            <br>
+            <button type="submit" class="btn btn-secondary submitReponse" data-jeu="jeu3">Soumettre</button>
+            
+        </form>
+        <div class="feedback"></div>
+        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+        <div >Score: <span class="score">0</span></div>
+        <button type="button" class="btn btn-secondary retourMenuJeu" data-jeu="jeu3">Retour au menu</button>
+    </div>
+    
+    
+
 
     <div class="table">
 

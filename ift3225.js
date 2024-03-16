@@ -5,11 +5,12 @@
     let intervaltemps;
     const chronometreElement = document.querySelectorAll('.chronometre');
     const scoreElement = document.querySelectorAll('.score');
-    let tempsRestant = 20;
+    let tempsRestant = 3;
+    let pendingFeedbackClear = null;
 
 
     /* ---------------------------------- DONNEES DU JEU ----------------------------------------- */
-    
+
     //question et leurs reponses pour jeu1
     const questionsEtReponsesJeu1 = [
         {
@@ -32,11 +33,7 @@
             reponses: ["sol majeur", "do majeur", "la majeur", "ré majeur"],
             correcte: 0
         },
-        {
-            question: "Quelle est la tonalité mineure relative de 'fa majeur'?",
-            reponses: ["ré mineur", "la mineur", "si mineur", "do mineur"],
-            correcte: 0
-        }
+
     ];
 
     const questionsEtReponsesJeu2 = [
@@ -51,6 +48,28 @@
             reponses: ["do ♭ majeur", "ré majeur", "sol majeur", "fa majeur"],
             correcte: 3,
             imgTonalite: "img-tonalite/1b.svg"
+        },
+        {
+            question: "Quelle est la tonalité mineure de l'image",
+            reponses: ["la mineur", "fa # mineur", "mi mineur", "do mineur"],
+            correcte: 2,
+            imgTonalite: "img-tonalite/1d.svg"
+        },
+        {
+            question: "Quelle est la tonalité majeure de l'image",
+            reponses: ["la majeur", "do majeur", "sol majeur", "fa # majeur"],
+            correcte: 1,
+            imgTonalite: "img-tonalite/zero.svg"
+        }
+    ];
+    const questionsEtReponsesJeu3 = [
+        {
+            question: "Combien de di`eses y a t-il dans la gamme de ré majeur ?",
+            correcte: "4",
+        },
+        {
+            question: "La gamme de si mineur a t-elle 2 ou 3 dieses ? ",
+            correcte: "2",
         }
     ];
 
@@ -64,111 +83,120 @@
         scoreElement.forEach(el => el.textContent = score.toString());
     }
 
-    function updateFeedback(message) {
+    // --------------------------------partie changer --------------------------------------------
+    function updateFeedback(message, isFinalMessage = false) {
+        // Efface tout timeout précédent pour effacer le feedback
+        if (pendingFeedbackClear) {
+            clearTimeout(pendingFeedbackClear);
+            pendingFeedbackClear = null;
+        }
         document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
+        if (!isFinalMessage) {
+            // Planifie l'effacement du message seulement si ce n'est pas le message final
+            pendingFeedbackClear = setTimeout(() => {
+                document.querySelectorAll('.feedback').forEach(el => el.textContent = '');
+            }, 1000);
+        }
     }
-
+ 
     function initialiserJeu() {
         clearInterval(intervaltemps);
-        tempsRestant = 20;
+        tempsRestant = 3;
         score = 0;
         questionIndex = 0;
         updateScore(); 
         updateChronometre(); 
-        updateFeedback('');
+        updateFeedback('',false);
+
     }
 
-    function demarrerChronometre(jeuId, question) {
-        intervaltemps = setInterval(() => {
-            tempsRestant--;
-            updateChronometre();
-    
-            if (tempsRestant <= 0) {
-                clearInterval(intervaltemps);
-                updateFeedback("Temps écoulé");
-                passerALaQuestionSuivante(jeuId, question);
-            }
-        }, 1000);
-    }
-    
-    function passerALaQuestionSuivante(jeuId, question) {
-        questionIndex++;
-        if (questionIndex < question.length) {
-            reinitialiserPourQuestionSuivante();
-            poserQuestion(question, jeuId);
-        } else {
-            finDuJeu(jeuId);
-        }
-    }
-    
-    function reinitialiserPourQuestionSuivante() {
-        tempsRestant = 20;
-        updateChronometre();
-        demarrerChronometre();
-    }
-    
-
-    // le chronometre du jeu
-    /* function demarrerChronometre(question, jeuId) {
-        intervaltemps = setInterval(() => {
-            tempsRestant--;
-            updateChronometre();
-
-            if (tempsRestant <= 0) { //temps est fini on passe a la question suivante 
-                passerALaQuestionSuivante(question, jeuId);
-            }
-        }, 1000);
-    }
-
-    // on passe a la question suivante si il y'a plus de question fin du jeu
-    function passerALaQuestionSuivante(jeuId, question) {
+    // --------------------------------partie changer -------------------------------------------
+    function demarrerChronometre(jeuId, questions) {
         clearInterval(intervaltemps);
-        questionIndex++;
-        if (questionIndex < questionsEtReponses.length) {
-            reinitialiserPourQuestionSuivante();
-            poserQuestion(question, jeuId);
-        } else {
-            finDuJeu(jeuId);
-        }
+        intervaltemps = setInterval(() => {
+            tempsRestant--;
+            updateChronometre();
+
+            if (tempsRestant === 0) {
+                clearInterval(intervaltemps);
+                updateFeedback("Temps écoulé", false);
+                questionIndex++;
+                if (questionIndex < questions.length) {
+                    poserQuestion(questions, jeuId);
+                } else {
+                    finDuJeu(jeuId);
+                }
+            }
+        }, 1000);
     }
 
-    // on initielise le temps a chaque fois qu'une question est poser
-    function reinitialiserPourQuestionSuivante() {
-        tempsRestant = 21;
-        updateChronometre();
-        demarrerChronometre();
-    } */
-
+   // --------------------------------partie changer -------------------------------------------
     //on demarre le jeu
-    function demarrerJeu(question, jeuId) {
+    function demarrerJeu(jeuId, questions) {
         initialiserJeu();
-        poserQuestion(question, jeuId);
-        demarrerChronometre();
+        poserQuestion(questions, jeuId);
+        demarrerChronometre(jeuId, questions);
     }
+   
 
-    function afficherJeu(jeu, question){
+
+    function afficherJeu(jeuId, questions) {
         document.getElementById('selection-jeu').style.display = 'none';
-        document.getElementById(jeu).style.display = 'block';
-        demarrerJeu(question, jeu);
+        document.getElementById(jeuId).style.display = 'block';
+        demarrerJeu(jeuId, questions);
     }
 
     function retourMenu(jeu){
-        document.getElementById('selection-jeu').style.display = 'block';
+        document.getElementById('selection-jeu').style.display = 'flex';
         document.getElementById(jeu).style.display = 'none';
         reinitialiserBoutonsReponse(jeu);
         initialiserJeu();
+        
     }
-
-    function poserQuestion(questions, jeuId) {
-        if (questionIndex < questions.length) {
-            const questionCourante = questions[questionIndex];
-            const questionElement = document.getElementById(`${jeuId}_question`);
-            questionElement.textContent = questionCourante.question;
     
+    // --------------------------------partie changer --------------------------------------------
+    function recupererReponseJeu3(questionCourante) {
+    var formJeu = document.getElementById(`formJeu3`);
+    formJeu.addEventListener("submit", function(event) {
+        event.preventDefault(); // Empêche le comportement par défaut du formulaire
+
+        var inputValue = document.getElementById(`reponseJeu3`).value;
+
+        if (inputValue === questionCourante.correcte) {
+            score += 1;
+            updateFeedback('Correct!');
+        } else {
+            updateFeedback('Incorrect.');
+        }
+        updateScore();
+        questionIndex++;
+
+        if (questionIndex < questionsEtReponsesJeu3.length) {
+            setTimeout(() => poserQuestion(questionsEtReponsesJeu3, 'jeu3'), 1000);
+        } else {
+            setTimeout(() => finDuJeu('jeu3'), 1000);
+        }
+
+    });
+}
+
+function poserQuestion(questions, jeuId) {
+    if (questionIndex < questions.length) {
+        tempsRestant = 3;
+        updateChronometre();
+
+        const questionCourante = questions[questionIndex];
+        const questionElement = document.getElementById(`${jeuId}_question`);
+        questionElement.textContent = questionCourante.question;
+
+        if (jeuId === 'jeu3') {
+            recupererReponseJeu3(questionCourante);
+        } else {
             const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
             boutonsReponse.forEach((bouton, index) => {
                 bouton.textContent = questionCourante.reponses[index];
-                bouton.onclick = function () {
+                bouton.onclick = function() {
+                    clearInterval(intervaltemps);
                     if (index === questionCourante.correcte) {
                         score += 1;
                         updateFeedback('Correct!');
@@ -177,7 +205,6 @@
                     }
                     updateScore();
                     questionIndex++;
-                    tempsRestant = 21;
                     if (questionIndex < questions.length) {
                         setTimeout(() => poserQuestion(questions, jeuId), 1000);
                     } else {
@@ -185,12 +212,16 @@
                     }
                 };
             });
-    
-            if (jeuId === 'jeu2') {
-                document.getElementById('imgTonalite').src = questionCourante.imgTonalite; 
-            }
         }
+
+        if ('imgTonalite' in questionCourante) {
+            document.getElementById('imgTonalite').src = questionCourante.imgTonalite;
+        }
+        // Important: Redémarrez le chronomètre ici si vous voulez qu'il continue après le choix de l'utilisateur
+        demarrerChronometre(jeuId, questions); // Cela pourrait ne pas être nécessaire si vous attendez une action de l'utilisateur pour continuer
     }
+}
+
 
     function reinitialiserBoutonsReponse(jeuId) {
         const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
@@ -198,16 +229,21 @@
             bouton.style.display = 'inline-block';
             bouton.disabled = false;
         });
+        const inputReponse = document.getElementById("formJeu3");
+        inputReponse.style.display = 'block';
     }
 
-    // on affiche le score et enleve les buttonns 
+    
+
     function finDuJeu(jeuId) {
         clearInterval(intervaltemps);
-        updateFeedback(`Le jeu est terminé. Score final : ${score}`);
+        updateFeedback("Le jeu est terminé. Score final : " + score, true);
         const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
         boutonsReponse.forEach(bouton => {
             bouton.style.display = 'none';
         });
+        const inputReponse = document.getElementById("formJeu3");
+        inputReponse.style.display = 'none';
     }
 
 /* -------------------------------------- JEUX -------------------------------------------- */
@@ -221,11 +257,16 @@
     document.getElementById('btnJeu2').addEventListener('click', function () {
         afficherJeu('jeu2', questionsEtReponsesJeu2);
     });
+    //Jeu 3
+    document.getElementById('btnJeu3').addEventListener('click', function () {
+        afficherJeu('jeu3', questionsEtReponsesJeu3);
+    });
 
     document.querySelectorAll('.retourMenuJeu').forEach(button => {
         button.addEventListener('click', function () {
             retourMenu('jeu1');
             retourMenu('jeu2');
+            retourMenu('jeu3');
         });
     });
 });

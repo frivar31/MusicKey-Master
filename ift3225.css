@@ -29,26 +29,21 @@
     
 }
 .tonalite {
-    display: inline-block;
-    margin: 3px;
-    border: 1px solid #000;
-    position: relative;
-    min-width: 180px;
-    height: 90px;
-    text-align: center;
+    display: block;
+    margin: 3px; 
     transition: transform 0.1s ease;
     padding: 5px;
     border-radius: 5px;
+    font-size:30px;
 }
-
     .tonalite:hover {
         transform: translateY(-5px);
         border: 3px solid #ffd800;
     }
 
     .tonalite img {
+       height: 80px;
         width: 80px;
-        height: 80px;
     }
 
 .toper {
@@ -68,26 +63,20 @@
 }
 
 .table {
-    background-color: #dedede;
-    font-family: 'Arial', sans-serif;
+    backdrop-filter: blur(10px);
     display: flex;
-    margin: 10px;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
+    overflow-x: auto;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    min-width: 120px;
+    flex: 0 0 auto;
+    margin: 5px; 
+    text-align: center;
 }
 
 /*style des jeux */
 
-#jeu1, #jeu2 {
+#jeu1, #jeu2,#jeu3{
     margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
@@ -96,24 +85,47 @@
     max-width: 650px;
 }
 
+.btn-reponse,.submitReponse{
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    display: inline-block;
+    min-width: 100px;
+    max-width: 80%;
+    width: auto;
+}
+
+    .btn-reponse:hover {
+        background-color: #0056b3;
+    }
 
     #jeu1 button {
         background-color: #007bff;
-        color: #ffffff;
-        border: none;
-        padding: 10px 20px;
-        margin: 5px 2px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 1em;
-        transition: background-color 0.3s;
-        min-width: 100px;
-        max-width: 80%;
-        width: auto;
     }
 
     #jeu1 button:hover {
             background-color: #0056b3;
+    }
+
+    #jeu2 button {
+        background-color: #09b300;
+    }
+
+    #jeu2 button:hover {
+            background-color: #1b8201;
+    }
+    #jeu3 button {
+        background-color: yellow;
+    }
+
+    #jeu3 button:hover {
+            background-color: yellowgreen;
     }
 
 
@@ -137,7 +149,7 @@
 }
 
 .feedback {
-    font-size: 2em;
+    font-size: 1em;
     margin-top: 15px;
     color: #d9534f;
 }
