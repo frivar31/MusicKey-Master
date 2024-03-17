@@ -4,6 +4,11 @@
     color: #333;
     text-align: center;
     padding: 20px;
+    background-image: url(bg3.jpeg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 90vh;
 }
 
 /*les cardres des tonaliter */
@@ -16,7 +21,6 @@
 
     #selection-jeu h1 {
         width: 100%;
-        text-align: center;
         margin-bottom: 20px; 
     }
 
@@ -37,12 +41,12 @@
     font-size:30px;
 }
     .tonalite:hover {
-        transform: translateY(-5px);
+        transform: translateY(-10px);
         border: 3px solid #ffd800;
     }
 
     .tonalite img {
-       height: 80px;
+       height: 90px;
         width: 80px;
     }
 
@@ -68,20 +72,20 @@
     overflow-x: auto;
 }
 
-.column {
+.column { /*si on enlever cette partie on aura plus de scoll barre*/
     flex: 0 0 auto;
-    margin: 5px; 
+    margin: 10px;
     text-align: center;
 }
 
 /*style des jeux */
 
-#jeu1, #jeu2,#jeu3{
+#jeu1, #jeu2, #jeu3 {
     margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
     background-color: #fff;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    box-shadow: 3px 3px black, -1em 0 .4em gray;
     max-width: 650px;
 }
 
@@ -121,26 +125,19 @@
             background-color: #1b8201;
     }
     #jeu3 button {
-        background-color: yellow;
+    background-color: #f7ce2a;
     }
 
     #jeu3 button:hover {
-            background-color: yellowgreen;
+        background-color: #c4a010;
     }
 
 
-#question {
-    font-size: 1em;
-    color: #333;
-    margin-bottom: 20px;
+#jeu1_question, #jeu2_question, #jeu3_question {
+    font-weight: bold;
+    font-size: 18px;
 }
 
-#next {
-    display: none;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 1.2em;
-}
 
 .score, .chronometre {
     font-size: 1.5em;
@@ -149,7 +146,8 @@
 }
 
 .feedback {
-    font-size: 1em;
-    margin-top: 15px;
+    font-size: 18px;
+    margin-top: 5px;
     color: #d9534f;
+    font-weight: bold;
 }
