@@ -80,7 +80,20 @@
         {
             question: "La gamme de si mineur a t-elle 2 ou 3 dieses ? ",
             correcte: "2",
-        }
+        },
+        {
+            question: "Combien de bemol y a t-il dans la gamme de sol ♭ majeur? ",
+            correcte: "6",
+        },        
+        {
+            question: "La gamme de fa mineur a t-elle 4 ou 7 bemol ? ",
+            correcte: "4",
+        },
+        {
+            question: "Combien de bemol y a t-il dans la gamme de do majeur ?",
+            correcte: "0",
+        },
+
     ];
     const questionsEtReponsesJeu4 = [
         {
