@@ -80,7 +80,7 @@
 
 /*style des jeux */
 
-#jeu1, #jeu2, #jeu3 {
+#jeu1, #jeu2, #jeu3, #jeu4 {
     margin: 20px auto;
     padding: 20px;
     border-radius: 10px;
@@ -125,15 +125,22 @@
             background-color: #1b8201;
     }
     #jeu3 button {
-    background-color: #f7ce2a;
+        background-color: #f7ce2a;
     }
 
     #jeu3 button:hover {
         background-color: #c4a010;
     }
+    #jeu4 button {
+        background-color: #54B4D3;
+    }
+
+    #jeu4 button:hover {
+        background-color: #37758a;
+    }
 
 
-#jeu1_question, #jeu2_question, #jeu3_question {
+#jeu1_question, #jeu2_question, #jeu3_question, #jeu4_question {
     font-weight: bold;
     font-size: 18px;
 }

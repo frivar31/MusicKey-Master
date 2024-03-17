@@ -5,7 +5,7 @@
     let intervaltemps;
     const chronometreElement = document.querySelectorAll('.chronometre');
     const scoreElement = document.querySelectorAll('.score');
-    let tempsRestant = 3;
+    let tempsRestant = 10;
     let pendingFeedbackClear = null;
 
 
@@ -72,6 +72,28 @@
             correcte: "2",
         }
     ];
+    const questionsEtReponsesJeu4 = [
+        {
+            question: "Les altérations de la gamme de \"fa mineur\" sont elles des bemols ou des dieses ?",
+            correcte: "bemol",
+        },
+        {
+            question: "Les altérations de la gamme de \"la majeur\" sont elles des bemols ou des dieses ?",
+            correcte: "diese",
+        },
+        {
+            question: "Les altérations de la gamme de \"si mineur\" sont elles des bemols ou des dieses ?",
+            correcte: "diese",
+        },
+        {
+            question: "Les altérations de la gamme de \"do mineur\" sont elles des bemols ou des dieses ?",
+            correcte: "bemol",
+        },
+        {
+            question: "Les altérations de la gamme de \"sol majeur\" sont elles des bemols ou des dieses ?",
+            correcte: "diese",
+        },
+    ];
 
     /* ----------------------------------- LOGIQUE ------------------------------------ */
 
@@ -101,7 +123,7 @@
  
     function initialiserJeu() {
         clearInterval(intervaltemps);
-        tempsRestant = 5;
+        tempsRestant = 10;
         score = 0;
         questionIndex = 0;
         updateScore(); 
@@ -156,7 +178,7 @@
     
     function poserQuestion(questions, jeuId) {
         if (questionIndex < questions.length) {
-            tempsRestant = 5;
+            tempsRestant = 10;
             updateChronometre();
     
             const questionCourante = questions[questionIndex];
@@ -165,8 +187,13 @@
     
             if (jeuId === 'jeu3') {
                 const formJeu = document.getElementById(`formJeu3`);
-                formJeu.removeEventListener("submit", handleSubmit); // Détache l'écouteur d'événements existant
-                formJeu.addEventListener("submit", handleSubmit); // Ajoute un nouvel écouteur d'événements
+                formJeu.removeEventListener("submit", GererReponseJeu3); // Détache l'écouteur d'événements existant
+                formJeu.addEventListener("submit", GererReponseJeu3); // Ajoute un nouvel écouteur d'événements
+            }
+            else if (jeuId === 'jeu4') {
+                const formJeu = document.getElementById(`formJeu4`);
+                formJeu.removeEventListener("submit", GererReponseJeu4); // Détache l'écouteur d'événements existant
+                formJeu.addEventListener("submit", GererReponseJeu4); // Ajoute un nouvel écouteur d'événements
             } else {
                 const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
                 boutonsReponse.forEach((bouton, index) => {
@@ -197,7 +224,7 @@
         }
     }
     
-    function handleSubmit(event) {
+    function GererReponseJeu3(event) {
         event.preventDefault();
         inputValue = document.getElementById(`reponseJeu3`).value;
         const questionCourante = questionsEtReponsesJeu3[questionIndex];
@@ -209,10 +236,35 @@
         }
         updateScore();
         questionIndex++;
+
+        document.getElementById(`reponseJeu3`).value = '';
+
         if (questionIndex < questionsEtReponsesJeu3.length) {
             setTimeout(() => poserQuestion(questionsEtReponsesJeu3, 'jeu3'), 1000);
         } else {
             setTimeout(() => finDuJeu('jeu3'), 1000);
+        }
+    }
+
+    function GererReponseJeu4(event) {
+        event.preventDefault();
+        inputValue = document.getElementById(`reponseJeu4`).value;
+        const questionCourante = questionsEtReponsesJeu4[questionIndex];
+        if (inputValue === questionCourante.correcte) {
+            score += 1;
+            updateFeedback('Correct!');
+        } else {
+            updateFeedback('Incorrect.');
+        }
+        updateScore();
+        questionIndex++;
+
+        document.getElementById(`reponseJeu4`).value = '';
+
+        if (questionIndex < questionsEtReponsesJeu4.length) {
+            setTimeout(() => poserQuestion(questionsEtReponsesJeu4, 'jeu4'), 1000);
+        } else {
+            setTimeout(() => finDuJeu('jeu4'), 1000);
         }
     }
 
@@ -222,8 +274,10 @@
             bouton.style.display = 'inline-block';
             bouton.disabled = false;
         });
-        const inputReponse = document.getElementById("formJeu3");
-        inputReponse.style.display = 'block';
+        const inputReponse3 = document.getElementById("formJeu3");
+        inputReponse3.style.display = 'block';
+        const inputReponse4 = document.getElementById("formJeu4");
+        inputReponse4.style.display = 'block';
     }
 
     
@@ -235,8 +289,11 @@
         boutonsReponse.forEach(bouton => {
             bouton.style.display = 'none';
         });
-        const inputReponse = document.getElementById("formJeu3");
-        inputReponse.style.display = 'none';
+        const inputReponse3 = document.getElementById("formJeu3");
+        inputReponse3.style.display = 'none';
+        const inputReponse4 = document.getElementById("formJeu4");
+        inputReponse4.style.display = 'none';
+        
     }
 
 /* -------------------------------------- JEUX -------------------------------------------- */
@@ -254,12 +311,17 @@
     document.getElementById('btnJeu3').addEventListener('click', function () {
         afficherJeu('jeu3', questionsEtReponsesJeu3);
     });
+    //Jeu 4
+    document.getElementById('btnJeu4').addEventListener('click', function () {
+        afficherJeu('jeu4', questionsEtReponsesJeu4);
+    });
 
     document.querySelectorAll('.retourMenuJeu').forEach(button => {
         button.addEventListener('click', function () {
             retourMenu('jeu1');
             retourMenu('jeu2');
             retourMenu('jeu3');
+            retourMenu('jeu4');
         });
     });
 });

@@ -64,6 +64,21 @@
         <div >Score: <span class="score">0</span></div>
         <button type="button" class="btn btn-secondary retourMenuJeu" data-jeu="jeu3">Retour au menu</button>
     </div>
+
+    <div id="jeu4" style="display:none;">
+        <h2>Bemol (♭) ou Diese (#) ? </h2>
+        <form id="formJeu4">
+            <p id="jeu4_question"></p>
+            <input id="reponseJeu4" type="text" pattern="(bemol|diese)" required placeholder="Entrez 'bemol' ou 'diese'" />
+            <br>
+            <button type="submit" class="btn btn-secondary submitReponse" data-jeu="jeu4">Soumettre</button>
+            
+        </form>
+        <div class="feedback"></div>
+        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+        <div >Score: <span class="score">0</span></div>
+        <button type="button" class="btn btn-secondary retourMenuJeu" data-jeu="jeu4">Retour au menu</button>
+    </div>
     
     
 
