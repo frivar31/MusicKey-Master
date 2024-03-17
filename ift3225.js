@@ -101,7 +101,7 @@
  
     function initialiserJeu() {
         clearInterval(intervaltemps);
-        tempsRestant = 3;
+        tempsRestant = 5;
         score = 0;
         questionIndex = 0;
         updateScore(); 
@@ -154,14 +154,63 @@
         
     }
     
-    // --------------------------------partie changer --------------------------------------------
-    function recupererReponseJeu3(questionCourante) {
-    var formJeu = document.getElementById(`formJeu3`);
-    formJeu.addEventListener("submit", function(event) {
-        event.preventDefault(); // Empêche le comportement par défaut du formulaire
-
-        var inputValue = document.getElementById(`reponseJeu3`).value;
-
+    function poserQuestion(questions, jeuId) {
+        // Vérifier si nous avons des questions à poser
+        if (questionIndex < questions.length) {
+            // Réinitialiser le temps et mettre à jour l'affichage
+            tempsRestant = 5;
+            updateChronometre();
+    
+            // Obtenir la question courante
+            const questionCourante = questions[questionIndex];
+            const questionElement = document.getElementById(`${jeuId}_question`);
+            questionElement.textContent = questionCourante.question;
+    
+            // Gérer le type de jeu en cours
+            if (jeuId === 'jeu3') {
+                const formJeu = document.getElementById(`formJeu3`);
+                formJeu.removeEventListener("submit", handleSubmitJeu3); // Détache l'écouteur d'événements existant
+                formJeu.addEventListener("submit", soumettreReponseJeu3); // Ajoute un nouvel écouteur d'événements
+            } else {
+                const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+                boutonsReponse.forEach((bouton, index) => {
+                    bouton.textContent = questionCourante.reponses[index];
+                    bouton.onclick = function () {
+                        clearInterval(intervaltemps);
+                        // Vérifier si la réponse est correcte et mettre à jour le score et l'affichage
+                        if (index === questionCourante.correcte) {
+                            score += 1;
+                            updateFeedback('Correct!');
+                        } else {
+                            updateFeedback('Incorrect.');
+                        }
+                        updateScore();
+                        questionIndex++;
+                        // Vérifier s'il reste d'autres questions à poser
+                        if (questionIndex < questions.length) {
+                            setTimeout(() => poserQuestion(questions, jeuId), 1000);
+                        } else {
+                            setTimeout(() => finDuJeu(jeuId), 1000);
+                        }
+                    };
+                });
+            }
+    
+            // Afficher une image si disponible
+            if ('imgTonalite' in questionCourante) {
+                document.getElementById('imgTonalite').src = questionCourante.imgTonalite;
+            }
+            // Démarrer le chronomètre
+            demarrerChronometre(jeuId, questions);
+        }
+    }
+    
+    // Fonction de soumission du formulaire pour le jeu 3
+    function soumettreReponseJeu3(event) {
+        event.preventDefault();
+        inputValue = document.getElementById(`reponseJeu3`).value;
+        const questionCourante = questionsEtReponsesJeu3[questionIndex];
+        // Vérifier si la réponse est correcte et mettre à jour le score et l'affichage
         if (inputValue === questionCourante.correcte) {
             score += 1;
             updateFeedback('Correct!');
@@ -170,57 +219,15 @@
         }
         updateScore();
         questionIndex++;
-
+        // Vérifier s'il reste d'autres questions à poser
         if (questionIndex < questionsEtReponsesJeu3.length) {
             setTimeout(() => poserQuestion(questionsEtReponsesJeu3, 'jeu3'), 1000);
         } else {
             setTimeout(() => finDuJeu('jeu3'), 1000);
         }
-
-    });
-}
-
-function poserQuestion(questions, jeuId) {
-    if (questionIndex < questions.length) {
-        tempsRestant = 3;
-        updateChronometre();
-
-        const questionCourante = questions[questionIndex];
-        const questionElement = document.getElementById(`${jeuId}_question`);
-        questionElement.textContent = questionCourante.question;
-
-        if (jeuId === 'jeu3') {
-            recupererReponseJeu3(questionCourante);
-        } else {
-            const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
-            boutonsReponse.forEach((bouton, index) => {
-                bouton.textContent = questionCourante.reponses[index];
-                bouton.onclick = function() {
-                    clearInterval(intervaltemps);
-                    if (index === questionCourante.correcte) {
-                        score += 1;
-                        updateFeedback('Correct!');
-                    } else {
-                        updateFeedback('Incorrect.');
-                    }
-                    updateScore();
-                    questionIndex++;
-                    if (questionIndex < questions.length) {
-                        setTimeout(() => poserQuestion(questions, jeuId), 1000);
-                    } else {
-                        setTimeout(() => finDuJeu(jeuId), 1000);
-                    }
-                };
-            });
-        }
-
-        if ('imgTonalite' in questionCourante) {
-            document.getElementById('imgTonalite').src = questionCourante.imgTonalite;
-        }
-        // Important: Redémarrez le chronomètre ici si vous voulez qu'il continue après le choix de l'utilisateur
-        demarrerChronometre(jeuId, questions); // Cela pourrait ne pas être nécessaire si vous attendez une action de l'utilisateur pour continuer
     }
-}
+    
+    
 
 
     function reinitialiserBoutonsReponse(jeuId) {
