@@ -9,6 +9,24 @@
     font-family: Andalus, sans-serif;
     color: black;
 }
+#btnJeu1 {  
+    background-color: white;
+}
+#btnJeu2 {
+    background-color: white;
+}
+#btnJeu3 {
+    background-color: white;
+}
+#btnJeu4 {
+    background-color: white;
+}
+.jeu img {
+    width: 120px; 
+    height: 100px; 
+    margin:10px;
+
+}
 
 body {
     font-family: 'Arial', sans-serif;

@@ -6,12 +6,11 @@
     const chronometreElement = document.querySelectorAll('.chronometre');
     const scoreElement = document.querySelectorAll('.score');
     let tempsRestant = 10;
-    let pendingFeedbackClear = null;
-
+    let ClearFeedback = null;
 
     /* ---------------------------------- DONNEES DU JEU ----------------------------------------- */
 
-    //question et leurs reponses pour jeu1
+    //question et leurs reponses pour les jeux
     const questionsEtReponsesJeu1 = [
         {
             question: "Quelle est la tonalité mineure relative de 'do ♭ majeur'?",
@@ -33,6 +32,11 @@
             reponses: ["sol majeur", "do majeur", "la majeur", "ré majeur"],
             correcte: 0
         },
+        {
+            question: "Quelle est la tonalité mineure relative de 'la majeur'?",
+            reponses: ["mi mineur", "fa ♯ mineur", "la mineur", "do mineur"],
+            correcte: 1
+        },
 
     ];
 
@@ -41,30 +45,36 @@
             question: "Quelle est la tonalité mineure de l'image",
             reponses: ["la ♭ mineur", "sol mineur", "ré mineur", "mi mineur"],
             correcte: 0,
-            imgTonalite: "img-tonalite/7b.svg"
+            imgTonalite: "static/7b.svg"
         },
         {
             question: "Quelle est la tonalité majeure de l'image",
             reponses: ["do ♭ majeur", "ré majeur", "sol majeur", "fa majeur"],
             correcte: 3,
-            imgTonalite: "img-tonalite/1b.svg"
+            imgTonalite: "static/1b.svg"
         },
         {
             question: "Quelle est la tonalité mineure de l'image",
             reponses: ["la mineur", "fa # mineur", "mi mineur", "do mineur"],
             correcte: 2,
-            imgTonalite: "img-tonalite/1d.svg"
+            imgTonalite: "static/1d.svg"
         },
         {
             question: "Quelle est la tonalité majeure de l'image",
             reponses: ["la majeur", "do majeur", "sol majeur", "fa # majeur"],
             correcte: 1,
-            imgTonalite: "img-tonalite/zero.svg"
+            imgTonalite: "static/zero.svg"
+        },
+         {
+             question: "Quelle est la tonalité mineure de l'image",
+             reponses: ["sol ♯ mineur", "fa # mineur", "si mineur", "si ♭ mineur"],
+             correcte: 0,
+            imgTonalite: "static/5d.svg"
         }
     ];
     const questionsEtReponsesJeu3 = [
         {
-            question: "Combien de di`eses y a t-il dans la gamme de ré majeur ?",
+            question: "Combien de dieses y a t-il dans la gamme de ré majeur ?",
             correcte: "4",
         },
         {
@@ -105,22 +115,19 @@
         scoreElement.forEach(el => el.textContent = score.toString());
     }
 
-    // --------------------------------partie changer --------------------------------------------
     function updateFeedback(message, isFinalMessage = false) {
-        // Efface tout timeout précédent pour effacer le feedback
-        if (pendingFeedbackClear) {
-            clearTimeout(pendingFeedbackClear);
-            pendingFeedbackClear = null;
+        if (ClearFeedback) {
+            clearTimeout(ClearFeedback);
+            ClearFeedback = null;
         }
         document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
         if (!isFinalMessage) {
-            // Planifie l'effacement du message seulement si ce n'est pas le message final
-            pendingFeedbackClear = setTimeout(() => {
+            ClearFeedback = setTimeout(() => {
                 document.querySelectorAll('.feedback').forEach(el => el.textContent = '');
             }, 1000);
         }
     }
- 
+
     function initialiserJeu() {
         clearInterval(intervaltemps);
         tempsRestant = 10;
@@ -129,16 +136,13 @@
         updateScore(); 
         updateChronometre(); 
         updateFeedback('',false);
-
     }
 
-    // --------------------------------partie changer -------------------------------------------
     function demarrerChronometre(jeuId, questions) {
         clearInterval(intervaltemps);
         intervaltemps = setInterval(() => {
             tempsRestant--;
             updateChronometre();
-
             if (tempsRestant === 0) {
                 clearInterval(intervaltemps);
                 updateFeedback("Temps écoulé", false);
@@ -152,8 +156,6 @@
         }, 1000);
     }
 
-   // --------------------------------partie changer -------------------------------------------
-    //on demarre le jeu
     function demarrerJeu(jeuId, questions) {
         initialiserJeu();
         poserQuestion(questions, jeuId);
