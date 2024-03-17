@@ -13,7 +13,7 @@
 
 <body>
     <div id="selection-jeu">
-        <h1>Choisis ton jeu</h1>
+        <h1>Choisis ton jeu </h1>
         <button type="button" id="btnJeu1" class="btn btn-primary btn-lg">Jeu 1</button>
         <button type="button" id="btnJeu2" class="btn btn-success btn-lg">Jeu 2</button>
         <button type="button" id="btnJeu3" class="btn btn-warning btn-lg">Jeu 3</button>
@@ -22,7 +22,7 @@
 
 
     <div id="jeu1" style="display: none;">
-        <h1>Question:</h1>
+        <h2>Choisir la bonne reponse :</h2>
         <p id="jeu1_question"></p>
         <button id="jeu1_reponseA" class="btn-reponse">Réponse A</button>
         <button id="jeu1_reponseB" class="btn-reponse">Réponse B</button>
@@ -36,24 +36,24 @@
     </div>
     
     <div id="jeu2" style="display:none;">
-        <h1>Identifiez la tonalité</h1>
-        <p id="jeu2_question">Question:</p>
+        <h2>Identifiez la tonalité :</h2>
+        <p id="jeu2_question"></p>
         <button id="jeu2_reponseA" class="btn-reponse">Réponse A</button>
         <button id="jeu2_reponseB" class="btn-reponse">Réponse B</button>
         <button id="jeu2_reponseC" class="btn-reponse">Réponse C</button>
         <button id="jeu2_reponseD" class="btn-reponse">Réponse D</button>
         <div class="feedback"></div>
         <br />
-        <img id="imgTonalite" src="" alt="img-tonalite" width="200" height="200"><br />
+        <img id="imgTonalite" src="" alt="img-tonalite"><br />
         <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
         <div>Score: <span class="score">0</span></div>
         <button class="btn btn-secondary retourMenuJeu" data-jeu="jeu2">Retour au menu</button>
     </div>
 
     <div id="jeu3" style="display:none;">
-        <h1>Devine le nombre</h1>
+        <h2>Devine le nombre : </h2>
         <form id="formJeu3">
-            <p id="jeu3_question">Question:</p>
+            <p id="jeu3_question"></p>
             <input id="reponseJeu3" type="text" pattern="[0-9]+" required/>
             <br>
             <button type="submit" class="btn btn-secondary submitReponse" data-jeu="jeu3">Soumettre</button>
@@ -71,7 +71,7 @@
     <div class="table">
 
         <div class="column">
-            <div class="tonalite toper">tonalitse  : </div>
+            <div class="tonalite toper">tonalitse  : <br /><br /></div>
             <div class="tonalite majeur">mode majeur :</div>
             <div class="tonalite mineur">mode mineur :</div>
         </div>
