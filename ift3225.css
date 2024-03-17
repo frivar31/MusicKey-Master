@@ -9,24 +9,6 @@
     font-family: Andalus, sans-serif;
     color: black;
 }
-#btnJeu1 {  
-    background-color: white;
-}
-#btnJeu2 {
-    background-color: white;
-}
-#btnJeu3 {
-    background-color: white;
-}
-#btnJeu4 {
-    background-color: white;
-}
-.jeu img {
-    width: 120px; 
-    height: 100px; 
-    margin:10px;
-
-}
 
 body {
     font-family: 'Arial', sans-serif;
@@ -39,17 +21,19 @@ body {
     background-size: cover;
     min-height: 90vh;
 }
+
 .titredeJeu {
     margin-bottom: 50px;
 }
+
 .titredeJeu h2{
     font-weight: bold;
 }
+
 .titredeJeu p {
     color: #6e6d7a;
 }
 
-/*les cardres des tonaliter */
 #selection-jeu {
     display: flex;
     gap: 20px;
@@ -58,7 +42,6 @@ body {
     justify-content: center;
     margin-bottom: 50px;
 }
-
 
 #selection-jeu .jeu {
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
@@ -77,8 +60,17 @@ body {
     transition: 0.3s ;
 }
 
+#btnJeu1, #btnJeu2, #btnJeu3, #btnJeu4 {
+    background-color: white;
+}
 
+.jeu img {
+    width: 120px;
+    height: 100px;
+    margin: 10px;
+}
 
+/*style de la table */
 .tonalite {
     display: block;
     margin: 3px;
@@ -87,7 +79,6 @@ body {
     border-radius: 5px;
     font-size: 18px;
 }
-
 
 .tonalite img {
     width: 60px;
@@ -101,13 +92,7 @@ body {
     align-items: center;
 }
 
-.majeur {
-    color: black;
-
-}
-
-
-.mineur {
+.majeur,.mineur {
     color: black;
 }
 
@@ -117,8 +102,7 @@ body {
     overflow-x: auto;
 }
 
-.column {
-    /*si on enlever cette partie on aura plus de scoll barre*/
+.column {   
     flex: 0 0 auto;
     text-align: center;
     box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.2);
@@ -142,8 +126,8 @@ body {
     font-weight: bold;
 }
 
-/*style des jeux */
 
+/*style des jeux */
 .jeux {
     margin: 20px auto;
     padding: 20px;
