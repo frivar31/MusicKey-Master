@@ -5,7 +5,7 @@
     let intervaltemps;
     const chronometreElement = document.querySelectorAll('.chronometre');
     const scoreElement = document.querySelectorAll('.score');
-    let tempsRestant = 10;
+    let tempsRestant = 20;
     let ClearFeedback = null;
 
     /* ---------------------------------- DONNEES DU JEU ----------------------------------------- */
@@ -115,13 +115,15 @@
         scoreElement.forEach(el => el.textContent = score.toString());
     }
 
-    function updateFeedback(message, isFinalMessage = false) {
+    function updateFeedback(message, messageFinal = false) {
         if (ClearFeedback) {
             clearTimeout(ClearFeedback);
             ClearFeedback = null;
         }
+
         document.querySelectorAll('.feedback').forEach(el => el.textContent = message);
-        if (!isFinalMessage) {
+
+        if (!messageFinal) {
             ClearFeedback = setTimeout(() => {
                 document.querySelectorAll('.feedback').forEach(el => el.textContent = '');
             }, 1000);
@@ -130,7 +132,7 @@
 
     function initialiserJeu() {
         clearInterval(intervaltemps);
-        tempsRestant = 10;
+        tempsRestant = 20;
         score = 0;
         questionIndex = 0;
         updateScore(); 
@@ -138,18 +140,24 @@
         updateFeedback('',false);
     }
 
+
+    // Cette fonction s'occupe du chronometre et tout ce qui est relie au temps de jeux
     function demarrerChronometre(jeuId, questions) {
         clearInterval(intervaltemps);
+
         intervaltemps = setInterval(() => {
             tempsRestant--;
             updateChronometre();
+
             if (tempsRestant === 0) {
                 clearInterval(intervaltemps);
                 updateFeedback("Temps écoulé", false);
                 questionIndex++;
+
                 if (questionIndex < questions.length) {
                     poserQuestion(questions, jeuId);
-                } else {
+                } 
+                else {
                     finDuJeu(jeuId);
                 }
             }
@@ -161,8 +169,6 @@
         poserQuestion(questions, jeuId);
         demarrerChronometre(jeuId, questions);
     }
-   
-
 
     function afficherJeu(jeuId, questions) {
         document.getElementById('selection-jeu').style.display = 'none';
@@ -175,18 +181,21 @@
         document.getElementById(jeu).style.display = 'none';
         reinitialiserBoutonsReponse(jeu);
         initialiserJeu();
-        
     }
-    
+
+    // Cette fonction gere la logique des questions et des reponses. Elle s'occupe d'afficher les questions
+    // et de verifier les reponses en inputs, du score, du chronometre et de la fin du jeu.
     function poserQuestion(questions, jeuId) {
         if (questionIndex < questions.length) {
-            tempsRestant = 10;
+            tempsRestant = 20;
             updateChronometre();
     
             const questionCourante = questions[questionIndex];
             const questionElement = document.getElementById(`${jeuId}_question`);
             questionElement.textContent = questionCourante.question;
     
+            // Si c'est le jeu 3 ou jeu 4, gérer les événements spécifiques
+
             if (jeuId === 'jeu3') {
                 const formJeu = document.getElementById(`formJeu3`);
                 formJeu.removeEventListener("submit", GererReponseJeu3); // Détache l'écouteur d'événements existant
@@ -194,25 +203,31 @@
             }
             else if (jeuId === 'jeu4') {
                 const formJeu = document.getElementById(`formJeu4`);
-                formJeu.removeEventListener("submit", GererReponseJeu4); // Détache l'écouteur d'événements existant
-                formJeu.addEventListener("submit", GererReponseJeu4); // Ajoute un nouvel écouteur d'événements
-            } else {
+                formJeu.removeEventListener("submit", GererReponseJeu4);
+                formJeu.addEventListener("submit", GererReponseJeu4);
+            } 
+            // Pour les autres jeux, afficher les boutons de réponse
+            else {
                 const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
                 boutonsReponse.forEach((bouton, index) => {
                     bouton.textContent = questionCourante.reponses[index];
                     bouton.onclick = function () {
                         clearInterval(intervaltemps);
+
                         if (index === questionCourante.correcte) {
                             score += 1;
                             updateFeedback('Correct!');
-                        } else {
+                        } 
+                        else {
                             updateFeedback('Incorrect.');
                         }
                         updateScore();
                         questionIndex++;
+
                         if (questionIndex < questions.length) {
                             setTimeout(() => poserQuestion(questions, jeuId), 1000);
-                        } else {
+                        } 
+                        else {
                             setTimeout(() => finDuJeu(jeuId), 1000);
                         }
                     };
@@ -226,16 +241,20 @@
         }
     }
     
+
     function GererReponseJeu3(event) {
         event.preventDefault();
         inputValue = document.getElementById(`reponseJeu3`).value;
         const questionCourante = questionsEtReponsesJeu3[questionIndex];
+        
         if (inputValue === questionCourante.correcte) {
             score += 1;
             updateFeedback('Correct!');
-        } else {
+        } 
+        else {
             updateFeedback('Incorrect.');
         }
+
         updateScore();
         questionIndex++;
 
@@ -243,7 +262,8 @@
 
         if (questionIndex < questionsEtReponsesJeu3.length) {
             setTimeout(() => poserQuestion(questionsEtReponsesJeu3, 'jeu3'), 1000);
-        } else {
+        } 
+        else {
             setTimeout(() => finDuJeu('jeu3'), 1000);
         }
     }
@@ -252,12 +272,15 @@
         event.preventDefault();
         inputValue = document.getElementById(`reponseJeu4`).value;
         const questionCourante = questionsEtReponsesJeu4[questionIndex];
+
         if (inputValue === questionCourante.correcte) {
             score += 1;
             updateFeedback('Correct!');
-        } else {
+        } 
+        else {
             updateFeedback('Incorrect.');
         }
+
         updateScore();
         questionIndex++;
 
@@ -265,34 +288,42 @@
 
         if (questionIndex < questionsEtReponsesJeu4.length) {
             setTimeout(() => poserQuestion(questionsEtReponsesJeu4, 'jeu4'), 1000);
-        } else {
+        } 
+        else {
             setTimeout(() => finDuJeu('jeu4'), 1000);
         }
     }
 
+    // cette fonction fait en sorte que les boutons et les inputs marches apres la fin de chaque jeu
     function reinitialiserBoutonsReponse(jeuId) {
         const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+
         boutonsReponse.forEach(bouton => {
             bouton.style.display = 'inline-block';
             bouton.disabled = false;
         });
+
         const inputReponse3 = document.getElementById("formJeu3");
         inputReponse3.style.display = 'block';
+
         const inputReponse4 = document.getElementById("formJeu4");
         inputReponse4.style.display = 'block';
     }
 
     
-
+    // Cette fonction s'occupe de la fin du jeu en desactivant les boutons et les inputs
     function finDuJeu(jeuId) {
         clearInterval(intervaltemps);
         updateFeedback("Le jeu est terminé. Score final : " + score, true);
         const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
+
         boutonsReponse.forEach(bouton => {
             bouton.style.display = 'none';
         });
+
         const inputReponse3 = document.getElementById("formJeu3");
         inputReponse3.style.display = 'none';
+
         const inputReponse4 = document.getElementById("formJeu4");
         inputReponse4.style.display = 'none';
         
@@ -309,10 +340,12 @@
     document.getElementById('btnJeu2').addEventListener('click', function () {
         afficherJeu('jeu2', questionsEtReponsesJeu2);
     });
+
     //Jeu 3
     document.getElementById('btnJeu3').addEventListener('click', function () {
         afficherJeu('jeu3', questionsEtReponsesJeu3);
     });
+
     //Jeu 4
     document.getElementById('btnJeu4').addEventListener('click', function () {
         afficherJeu('jeu4', questionsEtReponsesJeu4);
