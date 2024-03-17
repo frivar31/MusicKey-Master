@@ -155,29 +155,24 @@
     }
     
     function poserQuestion(questions, jeuId) {
-        // Vérifier si nous avons des questions à poser
         if (questionIndex < questions.length) {
-            // Réinitialiser le temps et mettre à jour l'affichage
             tempsRestant = 5;
             updateChronometre();
     
-            // Obtenir la question courante
             const questionCourante = questions[questionIndex];
             const questionElement = document.getElementById(`${jeuId}_question`);
             questionElement.textContent = questionCourante.question;
     
-            // Gérer le type de jeu en cours
             if (jeuId === 'jeu3') {
                 const formJeu = document.getElementById(`formJeu3`);
-                formJeu.removeEventListener("submit", handleSubmitJeu3); // Détache l'écouteur d'événements existant
-                formJeu.addEventListener("submit", soumettreReponseJeu3); // Ajoute un nouvel écouteur d'événements
+                formJeu.removeEventListener("submit", handleSubmit); // Détache l'écouteur d'événements existant
+                formJeu.addEventListener("submit", handleSubmit); // Ajoute un nouvel écouteur d'événements
             } else {
                 const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
                 boutonsReponse.forEach((bouton, index) => {
                     bouton.textContent = questionCourante.reponses[index];
                     bouton.onclick = function () {
                         clearInterval(intervaltemps);
-                        // Vérifier si la réponse est correcte et mettre à jour le score et l'affichage
                         if (index === questionCourante.correcte) {
                             score += 1;
                             updateFeedback('Correct!');
@@ -186,7 +181,6 @@
                         }
                         updateScore();
                         questionIndex++;
-                        // Vérifier s'il reste d'autres questions à poser
                         if (questionIndex < questions.length) {
                             setTimeout(() => poserQuestion(questions, jeuId), 1000);
                         } else {
@@ -196,21 +190,17 @@
                 });
             }
     
-            // Afficher une image si disponible
             if ('imgTonalite' in questionCourante) {
                 document.getElementById('imgTonalite').src = questionCourante.imgTonalite;
             }
-            // Démarrer le chronomètre
             demarrerChronometre(jeuId, questions);
         }
     }
     
-    // Fonction de soumission du formulaire pour le jeu 3
-    function soumettreReponseJeu3(event) {
+    function handleSubmit(event) {
         event.preventDefault();
         inputValue = document.getElementById(`reponseJeu3`).value;
         const questionCourante = questionsEtReponsesJeu3[questionIndex];
-        // Vérifier si la réponse est correcte et mettre à jour le score et l'affichage
         if (inputValue === questionCourante.correcte) {
             score += 1;
             updateFeedback('Correct!');
@@ -219,16 +209,12 @@
         }
         updateScore();
         questionIndex++;
-        // Vérifier s'il reste d'autres questions à poser
         if (questionIndex < questionsEtReponsesJeu3.length) {
             setTimeout(() => poserQuestion(questionsEtReponsesJeu3, 'jeu3'), 1000);
         } else {
             setTimeout(() => finDuJeu('jeu3'), 1000);
         }
     }
-    
-    
-
 
     function reinitialiserBoutonsReponse(jeuId) {
         const boutonsReponse = document.querySelectorAll(`#${jeuId} .btn-reponse`);
