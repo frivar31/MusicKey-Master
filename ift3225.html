@@ -1,43 +1,78 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <title>jeu des Tonalites</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 
     <link rel="stylesheet" href="ift3225.css">
 
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div id="selection-jeu">
-        <h1>Choisis ton jeu </h1>
-        <button type="button" id="btnJeu1" class="btn btn-primary btn-lg">Jeu 1</button>
-        <button type="button" id="btnJeu2" class="btn btn-success btn-lg">Jeu 2</button>
-        <button type="button" id="btnJeu3" class="btn btn-warning btn-lg">Jeu 3</button>
-        <button type="button" id="btnJeu4" class="btn btn-info btn-lg">Jeu 4</button>
+    <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid justify-content-center">
+            <a class="navbar-brand" href="#">
+
+                <img src="img-tonalite/icon.png" alt="Logo" width="100" height="84"
+                    class="d-inline-block align-text-center">
+            </a>
+        </div>
+    </nav>
+
+    <div class="titredeJeu">
+        <h2 >jeux de tonalité</h2>
+        <p>Choisi parmi les 4 jeux ci-dessous celle que tu veux , amuse toi bien : ) </p>
+    </div>
+    
+    
+    <div  id="selection-jeu">
+        <div id="btnJeu1" class="jeu">
+            <img src="img-tonalite/icon.png" alt="">
+            <h4>Jeu 1</h4>
+        </div>
+        <div id="btnJeu2" class="jeu">
+            <img src="img-tonalite/icon.png" alt="">
+            <h4>Jeu 2</h4>
+        </div>
+        <div id="btnJeu3"  class="jeu">
+            <img src="img-tonalite/icon.png" alt="">
+            <h4>Jeu 3</h4>
+        </div>
+        <div id="btnJeu4" class="jeu">
+            <img src="img-tonalite/icon.png" alt="">
+            <h4>Jeu 4</h4>
+        </div>
+
     </div>
 
 
-    <div id="jeu1" style="display: none;">
-        <h2>Choisir la bonne reponse :</h2>
-        <p id="jeu1_question"></p>
+
+    <div class="jeux" id="jeu1" style="display: none;">
+        <h2>mineur vs majeur</h2>
+        <p class="titre-style"  id="jeu1_question"></p>
         <button id="jeu1_reponseA" class="btn-reponse">Réponse A</button>
         <button id="jeu1_reponseB" class="btn-reponse">Réponse B</button>
         <button id="jeu1_reponseC" class="btn-reponse">Réponse C</button>
         <button id="jeu1_reponseD" class="btn-reponse">Réponse D</button>
         <div class="feedback"></div>
         <br>
-        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
-        <div>Score: <span class="score">0</span></div>
-        <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
+        <div class="jeu-footer">
+            <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+            <div>Score: <span class="score">0</span></div>
+            <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
+        </div>
     </div>
     
-    <div id="jeu2" style="display:none;">
-        <h2>Identifiez la tonalité :</h2>
-        <p id="jeu2_question"></p>
+    <div class="jeux"  id="jeu2" style="display:none;">
+        <h2>tonalite vs image </h2>
+        <p class="titre-style"  id="jeu2_question"></p>
         <button id="jeu2_reponseA" class="btn-reponse">Réponse A</button>
         <button id="jeu2_reponseB" class="btn-reponse">Réponse B</button>
         <button id="jeu2_reponseC" class="btn-reponse">Réponse C</button>
@@ -45,51 +80,54 @@
         <div class="feedback"></div>
         <br />
         <img id="imgTonalite" src="" alt="img-tonalite"><br />
-        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
-        <div>Score: <span class="score">0</span></div>
-        <button class="btn btn-secondary retourMenuJeu" data-jeu="jeu2">Retour au menu</button>
+        <div class="jeu-footer">
+            <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+            <div>Score: <span class="score">0</span></div>
+            <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
+        </div>
     </div>
 
-    <div id="jeu3" style="display:none;">
-        <h2>Devine le nombre : </h2>
+    <div class="jeux" id="jeu3" style="display:none;">
+        <h2>Combien de ?</h2>
         <form id="formJeu3">
-            <p id="jeu3_question"></p>
+            <p class="titre-style"  id="jeu3_question"></p>
             <input id="reponseJeu3" type="text" pattern="[0-9]+" required/>
             <br>
-            <button type="submit" class="btn btn-secondary submitReponse" data-jeu="jeu3">Soumettre</button>
+            <button type="submit" class="submit btn btn-primary submitReponse" data-jeu="jeu3">Soumettre</button>
             
         </form>
         <div class="feedback"></div>
-        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
-        <div >Score: <span class="score">0</span></div>
-        <button type="button" class="btn btn-secondary retourMenuJeu" data-jeu="jeu3">Retour au menu</button>
+        <div class="jeu-footer">
+            <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+            <div>Score: <span class="score">0</span></div>
+            <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
+        </div>
     </div>
 
-    <div id="jeu4" style="display:none;">
+    <div class="jeux"  id="jeu4" style="display:none;">
         <h2>Bemol (♭) ou Diese (#) ? </h2>
         <form id="formJeu4">
-            <p id="jeu4_question"></p>
+            <p class="titre-style" id="jeu4_question"></p>
             <input id="reponseJeu4" type="text" pattern="(bemol|diese)" required placeholder="Entrez 'bemol' ou 'diese'" />
             <br>
-            <button type="submit" class="btn btn-secondary submitReponse" data-jeu="jeu4">Soumettre</button>
-            
+            <button type="submit" class="submit btn btn-primary submitReponse" data-jeu="jeu4">Soumettre</button>
         </form>
         <div class="feedback"></div>
-        <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
-        <div >Score: <span class="score">0</span></div>
-        <button type="button" class="btn btn-secondary retourMenuJeu" data-jeu="jeu4">Retour au menu</button>
+        <div class="jeu-footer">
+            <div>Chronomètre: <span class="chronometre">20</span> secondes</div>
+            <div>Score: <span class="score">0</span></div>
+            <button  class="btn btn-secondary retourMenuJeu" data-jeu="jeu1">Retour au menu</button>
+        </div>
     </div>
-    
+
     
 
 
+    <div class="titre">
+        <h2>Cycle des quintes</h2>
+    </div>
     <div class="table">
 
-        <div class="column">
-            <div class="tonalite toper">tonalitse  : <br /><br /></div>
-            <div class="tonalite majeur">mode majeur :</div>
-            <div class="tonalite mineur">mode mineur :</div>
-        </div>
         <div class="column">
 
             <div class="tonalite toper">7 ♭ <img src="img-tonalite/7b.svg" alt="7b" /></div>
@@ -180,6 +218,33 @@
         </div>
 
     </div>
+
+
+
+
+
+
+<!----------------------------------------------->
+
+
+<!----------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <script src="ift3225.js"></script>
 </body>
