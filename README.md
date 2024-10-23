@@ -1,4 +1,5 @@
-# Pour le cours : ift3225 (technologie de l'internet)
+# MusicKey Master 
+Pour le cours : ift3225 (technologie de l'internet)
 
 "MusicKey Master" est une application web interactive qui permet aux utilisateurs de s'entraîner et de tester leurs connaissances musicales sur les tonalités majeures et mineures, ainsi que sur le cycle des quintes. Le projet propose plusieurs jeux éducatifs, avec un système de score et un chronomètre pour rendre l'expérience plus engageante.
 
